@@ -1,0 +1,18 @@
+--域名参数说明
+
+index.html?block=20&tri=100&revive=5&double=100
+
+(百分比以100为基数，比如50=0.5)
+block=50	//每一行每个格子的砖块刷新概率
+tri=30		//出现三角形砖块
+double=20	//出现当前数字*2的数字
+revive=3	//游戏结束后成功续命，则当前游戏砖块布局向上升X格
+debug=true	//测试，自动复活
+
+
+
+--sdk接口
+
+GameSDK.addGameOver(function(score){alert(score)}); //游戏结束通知　score: 分数
+GameSDK.revive();//复活
+GameSDK.start();//开始游戏

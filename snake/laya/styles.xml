@@ -1,0 +1,15 @@
+<res>
+   <item name="game/ball_u_BGColor.png" type="Image" compress="0" pack="0" quality="80" props="" picType="1"/>
+   <item name="game/ball_Btn_BallBack.png" type="ScaleButton" compress="0" pack="0" quality="80" props="" picType="0"/>
+   <item name="game/ball_Btn_SpeedUp.png" type="ScaleButton" compress="0" pack="0" quality="80" props="" picType="0"/>
+   <item name="game/ball_Effect_X.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0"/>
+   <item name="game/ball_Effect_Y.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0"/>
+   <item name="game/ball_u_AimLine.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0"/>
+   <item name="game/ball_u_Bottom_BG.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0"/>
+   <item name="game/ball_u_Unity_BG.png" type="Image" compress="0" pack="2" quality="80" props="" picType="0"/>
+   <item name="game/ball_u_Warning.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=50,49,48,51" picType="0"/>
+   <item name="game/ball_u_DividerLine.png" type="Image" compress="0" pack="0" quality="80" props="" picType="1" scale="0"/>
+   <item name="game/ball_u_Guide_Banner.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=47,45,44,41" picType="0" scale="0"/>
+   <item name="game/ball_u_Guide_Title.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="game/Snake_Wall.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=8,3,12,2" picType="0" scale="0"/>
+</res>
