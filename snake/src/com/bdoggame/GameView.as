@@ -33,10 +33,10 @@ package com.bdoggame
 	public class GameView extends GameViewUI 
 	{
 		public static var current:GameView;
-		
-		public static const GROUP_BLOCK = Math.pow(2,0);
-		public static const GROUP_BALL = Math.pow(2,1);
-		public static const GROUP_BALL_ITEM = Math.pow(2,2);
+		//pow() 方法可返回 x 的 y 次幂的值。
+		public static const GROUP_BLOCK = Math.pow(2,0);		//空格组
+		public static const GROUP_BALL = Math.pow(2,1);			//蛇球体组
+		public static const GROUP_BALL_ITEM = Math.pow(2,2);	//球体图标组
 		
 		public static var ballMat:*;
 		public static var blockMat:*;
@@ -44,7 +44,6 @@ package com.bdoggame
 		public static const BALL_SIZE:int = 18;
 		public static const BLOCK_SIZE:int = 150;
 		
-
 		private var horizontalSpeedMax:Number = 3000;
 		
 		public var verticalSpeedAccelerationStepValue:int = 50;
@@ -57,9 +56,9 @@ package com.bdoggame
 		private var p2:* = Browser.window.p2;
 		private var world:*;
 		
-		private var _score:int;//分数
+		private var _score:int;							//分数
 		
-		private var ballsnake:BallSnake;
+		private var ballsnake:BallSnake;				//球状蛇体
 		
 		
 		private var itemList:Array;
@@ -69,7 +68,7 @@ package com.bdoggame
 		
 		private var currentLine:int;
 		private var currentIntervalHeight:int;
-		private var BeforeNextBlockLine:Number;//长度剩于
+		private var BeforeNextBlockLine:Number;			//长度剩余
 		private var nextblockArea:Number;
 		private var nextblockAreaLineCount:Number;
 		private var secondPhase:Boolean;
@@ -80,7 +79,7 @@ package com.bdoggame
 		private var maxSpeedRectification:Boolean = true;
 		private var isHitting:Boolean;
 		
-		
+		//关于block的属性
 		public var maxBlockValue:int = 50;
 		public var minBlockValue:int = 1;
 		public var blockLineCountMax:int = 2;
@@ -88,7 +87,7 @@ package com.bdoggame
 		public var barProbability:Number = 0.2;
 		public var areaMin:int = 4;
 		public var areaMax:int = 7;
-		
+		//关于ball的属性
 		public var minBallValue:int = 1;
 		public var intervalBallProbability:Number = 0.1;
 		public var maxBallValue:int = 5;
@@ -105,7 +104,7 @@ package com.bdoggame
 		public var superBlockValue:int = 25;
 		public var superBlockLine:int = 3;
 		public var superStartTime:Number;
-		
+		//当前current属性
 		private var currentBlockLine:int = 0;
 		private var currentVerticalSmoothVelocity:Number;
 		private var currentHorizontalSmoothVelocity:Number = 0;
@@ -115,14 +114,14 @@ package com.bdoggame
 		private var speedLine:int = 5;
 		private var onPause:Boolean;
 		private var debug:Boolean = false;
-		
+		//方块数字区间数组
 		public var valueArea1:Array = [[1, 5], [6, 15], [16, 30]];
 		public var valueArea2:Array = [[10, 20], [21, 30], [31, 50]];
 		public var valueArea3:Array = [[1,10], [11,25], [26,50]];
 		public var valueArea2Probability = 0.2;
 		
-		private var mHighScore:int = 0;
-		
+		private var mHighScore:int = 0;				//最高分
+		//单例模式
 		private static var _instance:GameView;
 		static public function instance():GameView 
 		{
@@ -131,7 +130,7 @@ package com.bdoggame
 			}
 			return _instance;
 		}
-		
+		//构造函数
 		public function GameView() 
 		{
 			mHighScore = LocalStorage.getItem("HIGH_SCORE",0) == null ? 0:  LocalStorage.getItem("HIGH_SCORE",0);
@@ -152,6 +151,7 @@ package com.bdoggame
 			debug = p["debug"] == null ? false : p["debug"] == "true";
 
 			
+			
 			ballMat = new p2.Material();
 			blockMat = new p2.Material();
 
@@ -159,10 +159,11 @@ package com.bdoggame
                 friction:0,stiffness:Number.MAX_VALUE
             }));
 
-			
+			//接触检测事件
 			function onContact(pair:*){
 				var otherBody:*;
 				var ball:Ball;
+				//碰撞物体为ball
 				if (pair.bodyA.label == "ball")
 				{
 					otherBody = pair.bodyB;
@@ -173,7 +174,7 @@ package com.bdoggame
 					otherBody = pair.bodyA;
 					ball = pair.bodyB.sprite;
 				}
-				
+				//碰撞物体为block
 				if (otherBody.label == "block")
 				{
 					var normal:* = pair.contactEquations[0].normalA;
@@ -192,6 +193,7 @@ package com.bdoggame
 						}
 					}
 				}
+				//碰撞物体为ballItem
 				else if (otherBody.label == "ballItem")
 				{
 					var ballItem:BallItem = otherBody.sprite;
@@ -205,8 +207,9 @@ package com.bdoggame
 				}
 				
 			}
+			//注册开始碰撞事件
 			world.on("beginContact", onContact);
-			
+			//注册解决之前事件
 			world.on("preSolve", function(data:*){
 				
 				if (data.contactEquations.length <= 0) return;
@@ -248,14 +251,13 @@ package com.bdoggame
 			
 			this.on(Event.DISPLAY, this, onAdd);
 			
-			
 			EventCenter.instance.on(GameSDK.PAUSE, this, function(){onPause = true, this.mouseEnabled = false; });
 			EventCenter.instance.on(GameSDK.RESUME, this, function(){onPause = false, this.mouseEnabled = true; });
 			EventCenter.instance.on(GameSDK.START, this, function(){onPause = false, this.mouseEnabled = true; gamestart(); });
 		}
 		
 
-
+		//
 		private function onAdd():void 
 		{
 			//gamestart();
@@ -270,7 +272,7 @@ package com.bdoggame
 			GameSDK.start();
 			
 		}
-		
+		//向下
 		private function onDown():void 
 		{
 			currentVerticalSmoothVelocity = 0;
@@ -281,7 +283,7 @@ package com.bdoggame
 			//stage.on(Event.MOUSE_MOVE, this , onMove);
 			stage.on(Event.MOUSE_UP, this , onUp);
 		}
-		
+		//向上
 		private function onUp():void 
 		{
 			//stage.off(Event.MOUSE_MOVE, this , onMove);
@@ -289,7 +291,7 @@ package com.bdoggame
 			this.isDown = false;
 			p2.vec2.set(ballsnake.mainBall.body.velocity, 0, getVerticalSpeed());
 		}
-		
+		//移动
 		private function onMove():void 
 		{
 			var vec2:* = ballsnake.mainBall.body.velocity;
@@ -340,9 +342,12 @@ package com.bdoggame
 		}
 		
 		
-		
+		/*
+		 * 游戏开始入口
+		 * */
 		public function gamestart()
 		{
+			//初始化
 			score = 0;
 			container.y = 0;
 			currentBlockLine = 0;
@@ -351,15 +356,15 @@ package com.bdoggame
 				container.removeChildAt(i);
 			}
 			itemList.length = 0;
-			
+			//新建球状蛇体
 			ballsnake ||= new BallSnake();
 			container.addChild(ballsnake);
 			ballsnake.x = this.width / 2;
 			ballsnake.y = this.height - 400;
-			
+			//添加球状蛇体的UI
 			snakeView ||= new BallSnakeUI();
 			addChild(snakeView);
-			
+			//蛇体设置
 			superBlockValue = 25;
 			superBlockLine = 3;
 			ballsnake.LaunchSnake(ballsnake.x, ballsnake.y);
@@ -369,6 +374,7 @@ package com.bdoggame
 			this.mouseEnabled = true;
 			
 			//----------
+			//设置游戏中的障碍、蛇体链表
 			currentLine = 0;
 			this.nextblockArea = 0;
 			this.nextblockAreaLineCount = 0;
@@ -400,6 +406,7 @@ package com.bdoggame
 
 		private var overPos:Point = new Point();
 		private var mReviveShowed:Boolean = false;
+		//游戏结束函数
 		private function gameOver():void 
 		{
 			Laya.timer.clear(this, onFrame);
@@ -428,7 +435,7 @@ package com.bdoggame
 			}
 			
 		}
-		
+		//复活
 		private function revive()
 		{
 			ballsnake.createBalls(5);
@@ -437,7 +444,7 @@ package com.bdoggame
 			Laya.timer.frameLoop(1, this, onFrame);
 			//gamestart();
 		}
-		
+		//每帧刷新
 		private function onFrame():void 
 		{
 			if (onPause) return;
@@ -494,7 +501,7 @@ package com.bdoggame
 			}
 			
 		}
-		
+		//更新
 		private function update ()
 		{
 			var num:Number = -container.y - this.height;
@@ -720,7 +727,7 @@ package com.bdoggame
 				this.currentLine++;
 			}
 		}
-
+		//检查坐标
 		public function checkCoordinates(tx:int, ty:int):Boolean
 		{
 			for each(var c:Coordinates in startingPhaseBallCoordinates)
@@ -729,19 +736,19 @@ package com.bdoggame
 			}
 			return false
 		}
-		
+		//获取分数
 		public function get score():int 
 		{
 			return _score;
 		}
-		
+		//设置分数
 		public function set score(value:int):void 
 		{
 			_score = value;
 			//labelScore.incText = _score + "";
 			this.labScore.text = _score + "";
 		}
-		
+		//获取水平速度
 		public function getVerticalSpeed():Number
         {
 			if (ballsnake.isSuperSnake) return -verticalSpeedMax;
@@ -755,7 +762,7 @@ package com.bdoggame
 			ballsnake.isSuperSnake = true;
 			superStartTime = 10000;
 		}
-		
+		//球体集中方块
 		public function ballHitBlock(block:Block):void
         {
             this.isHitting = true;
@@ -776,7 +783,7 @@ package com.bdoggame
             this.currentDelayBetweenHits = Math.min(1, Math.max(0.5, this.currentBlockHitCount / 10));
             this.remainingTimeBeforeCanHitAgain =  (1.1 - this.currentDelayBetweenHits) * 0.1;
         }
-		
+		//
 		private function onBlockUnDisplay():void 
 		{
 			this.currentHitBlock = null;

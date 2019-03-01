@@ -33,7 +33,7 @@ package {
 		public function Main() {
 			//初始化引擎
 			MiniAdpter.init();
-			console.log("main test");
+			console.log("this is svb2ext clone");
 			Laya.init(750, 1334, WebGL);
 			//Stat.show(0,0);
 			Laya.stage.bgColor = "#484B58";

@@ -933,7 +933,7 @@ var LayaUISample=(function(){
 var Main=(function(){
 	function Main(){
 		MiniAdpter.init();
-		console.log("main test");
+		console.log("this is svb2ext clone");
 		Laya.init(750,1334,WebGL);
 		Laya.stage.bgColor="#484B58";
 		Laya.stage.frameRate="fast";
@@ -2164,7 +2164,7 @@ var GameView=(function(_super){
 		this.currentLine=0;
 		this.currentIntervalHeight=0;
 		this.BeforeNextBlockLine=NaN;
-		//长度剩于
+		//长度剩余
 		this.nextblockArea=NaN;
 		this.nextblockAreaLineCount=NaN;
 		this.secondPhase=false;
@@ -2201,6 +2201,7 @@ var GameView=(function(_super){
 		this.speedLine=5;
 		this.onPause=false;
 		this.debug=false;
+		//方块数字区间数组
 		this.valueArea1=[[1,5],[6,15],[16,30]];
 		this.valueArea2=[[10,20],[21,30],[31,50]];
 		this.valueArea3=[[1,10],[11,25],[26,50]];
@@ -2299,6 +2300,7 @@ var GameView=(function(_super){
 
 	__class(GameView,'com.bdoggame.GameView',_super);
 	var __proto=GameView.prototype;
+	//
 	__proto.onAdd=function(){
 		this.on("mousedown",this,this.onDown);
 		if (!this.debug){
@@ -2308,6 +2310,7 @@ var GameView=(function(_super){
 		GameSDK.start();
 	}
 
+	//向下
 	__proto.onDown=function(){
 		this.currentVerticalSmoothVelocity=0;
 		this.currentX=this.mouseX;
@@ -2317,12 +2320,14 @@ var GameView=(function(_super){
 		this.stage.on("mouseup",this ,this.onUp);
 	}
 
+	//向上
 	__proto.onUp=function(){
 		this.stage.off("mouseup",this ,this.onUp);
 		this.isDown=false;
 		this.p2.vec2.set(this.ballsnake.mainBall.body.velocity,0,this.getVerticalSpeed());
 	}
 
+	//移动
 	__proto.onMove=function(){
 		var vec2=this.ballsnake.mainBall.body.velocity;
 		if (vec2[1] > 0)vec2[1]=0;
@@ -2362,6 +2367,9 @@ var GameView=(function(_super){
 		this.ballsnake.xSpeed=vec2[0];
 	}
 
+	/*
+	*游戏开始入口
+	**/
 	__proto.gamestart=function(){
 		this.score=0;
 		this.container.y=0;
@@ -2405,6 +2413,7 @@ var GameView=(function(_super){
 		this.mReviveShowed=false;
 	}
 
+	//游戏结束函数
 	__proto.gameOver=function(){
 		Laya.timer.clear(this,this.onFrame);
 		EventCenter.instance.on("revive",this,this.revive);
@@ -2429,6 +2438,7 @@ var GameView=(function(_super){
 		}
 	}
 
+	//复活
 	__proto.revive=function(){
 		this.ballsnake.createBalls(5);
 		this.ballsnake.mainBall.pos(this.overPos.x,this.overPos.y);
@@ -2436,7 +2446,7 @@ var GameView=(function(_super){
 		Laya.timer.frameLoop(1,this,this.onFrame);
 	}
 
-	//gamestart();
+	//每帧刷新
 	__proto.onFrame=function(){
 		if (this.onPause)return;
 		if (this.superStartTime > 0){
@@ -2478,6 +2488,7 @@ var GameView=(function(_super){
 		}
 	}
 
+	//更新
 	__proto.update=function(){
 		var num=-this.container.y-this.height;
 		var num2=(this.column-1)*150;
@@ -2677,6 +2688,7 @@ var GameView=(function(_super){
 		}
 	}
 
+	//检查坐标
 	__proto.checkCoordinates=function(tx,ty){
 		var c;
 		for(var $each_c in this.startingPhaseBallCoordinates){
@@ -2686,6 +2698,7 @@ var GameView=(function(_super){
 		return false
 	}
 
+	//获取水平速度
 	__proto.getVerticalSpeed=function(){
 		if (this.ballsnake.isSuperSnake)return-this.verticalSpeedMax;
 		var b=Math.min(Math.floor(this.currentBlockLine / this.speedLine)/ 8 *this.verticalSpeedMax+this.verticalSpeed,this.verticalSpeedMax);
@@ -2698,6 +2711,7 @@ var GameView=(function(_super){
 		this.superStartTime=10000;
 	}
 
+	//球体集中方块
 	__proto.ballHitBlock=function(block){
 		this.isHitting=true;
 		if (this.currentHitBlock !=block){
@@ -2715,10 +2729,13 @@ var GameView=(function(_super){
 		this.remainingTimeBeforeCanHitAgain=(1.1-this.currentDelayBetweenHits)*0.1;
 	}
 
+	//
 	__proto.onBlockUnDisplay=function(){
 		this.currentHitBlock=null;
 	}
 
+	//设置分数
+	//获取分数
 	__getset(0,__proto,'score',function(){
 		return this._score;
 		},function(value){
