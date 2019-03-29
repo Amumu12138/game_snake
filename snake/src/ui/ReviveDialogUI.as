@@ -6,14 +6,16 @@ package ui {
 	import laya.p2.*;
 
 	public class ReviveDialogUI extends Dialog {
+		public var imgSlogan:Image;
 		public var labCurScore:Label;
 		public var labHighScore:Label;
 		public var btnVideo:Button;
-		public var btnCoin:Button;
 		public var btnEnd:Button;
 		public var labCoin:Label;
+		public var btnReceive:Button;
+		public var btnDoubleReceive:Button;
 
-		public static var uiView:Object =/*[STATIC SAFE]*/{"type":"Dialog","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":342,"x":59,"skin":"settle/bgSettle.png"}},{"type":"Label","props":{"y":495,"x":341,"var":"labCurScore","text":"60","fontSize":60,"color":"#ffffff"}},{"type":"Label","props":{"y":408,"x":315,"text":"分数","fontSize":60,"color":"#ffffff"}},{"type":"Label","props":{"y":599,"x":437,"var":"labHighScore","text":"60","fontSize":40,"color":"#7c7c7c"}},{"type":"Label","props":{"y":599,"x":224,"text":"最高分","fontSize":40,"color":"#7c7c7c"}},{"type":"Button","props":{"y":665,"x":230,"var":"btnVideo","stateNum":1,"skin":"home/videorevive.png","scaleY":0.5,"scaleX":0.5}},{"type":"Button","props":{"y":865,"x":377,"visible":false,"var":"btnCoin","skin":"home/coinrevive.png"}},{"type":"Button","props":{"y":891,"x":283,"var":"btnEnd","skin":"settle/btnEnd.png"}},{"type":"Image","props":{"y":708,"x":277,"width":196,"visible":false,"skin":"home/bgcoinnum.png","height":62},"child":[{"type":"Image","props":{"y":3,"x":12,"skin":"home/revivecoins.png","scaleY":0.6,"scaleX":0.6}},{"type":"Label","props":{"y":30,"x":148,"var":"labCoin","text":"0/5","fontSize":51,"font":"Arial","color":"#ffffff","anchorY":0.5,"anchorX":0.5,"align":"center"}}]}]};
+		public static var uiView:Object =/*[STATIC SAFE]*/{"type":"Dialog","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"var":"imgSlogan","top":150,"skin":"resources/settle/slogan_01.png","centerX":0}},{"type":"Image","props":{"y":280,"x":0,"skin":"resources/settle/imgBg.png","name":"imgBg"}},{"type":"Label","props":{"y":424,"var":"labCurScore","text":"60","fontSize":60,"font":"scoreNum","color":"#ffffff","centerX":0,"bold":true}},{"type":"Image","props":{"y":522,"x":229,"skin":"resources/settle/imgMaxScore.png","name":"imgMaxScore"}},{"type":"Label","props":{"y":522,"x":392,"var":"labHighScore","text":"60","fontSize":30,"color":"#7c7c7c"}},{"type":"Button","props":{"y":600,"x":261,"var":"btnVideo","stateNum":3,"skin":"resources/settle/btnRevive.png","scaleY":1,"scaleX":1}},{"type":"Button","props":{"y":730,"x":295,"width":183,"var":"btnEnd","stateNum":1,"skin":"resources/home/game_control_selected.png","labelStrokeColor":"#ffffff","labelStroke":1,"labelSize":40,"label":"HOME","height":65}},{"type":"Image","props":{"y":784,"x":269,"visible":false,"skin":"resources/settle/coin.png","name":"imgCoin"}},{"type":"Image","props":{"y":801,"x":334,"visible":false,"skin":"resources/settle/imgAdd.png","name":"imgAdd"}},{"type":"Label","props":{"y":794,"x":351,"width":121,"var":"labCoin","text":"1000","height":44,"fontSize":40,"font":"Arial","color":"#ffffff","align":"center"}},{"type":"Button","props":{"y":875,"x":97,"var":"btnReceive","stateNum":3,"skin":"resources/settle/btnReceive.png","scaleY":1,"scaleX":1}},{"type":"Button","props":{"y":875,"x":421,"var":"btnDoubleReceive","stateNum":3,"skin":"resources/settle/btnDoubleReceive.png","scaleY":1,"scaleX":1}},{"type":"Image","props":{"y":-6,"x":758,"skin":"resources/settle/画板 1.png"}}]};
 		override protected function createChildren():void {
 			super.createChildren();
 			createView(uiView);

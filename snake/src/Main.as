@@ -33,8 +33,8 @@ package {
 		public function Main() {
 			//初始化引擎
 			MiniAdpter.init();
-			console.log("this is svb2ext clone");
 			Laya.init(750, 1334, WebGL);
+			console.log("Game Main");
 			//Stat.show(0,0);
 			Laya.stage.bgColor = "#484B58";
 			Laya.stage.frameRate = Stage.FRAME_FAST;
@@ -79,6 +79,11 @@ package {
 			,{url: "res/atlas/redbag.atlas", type: Loader.ATLAS}
 			,{url: "res/atlas/settle.atlas", type: Loader.ATLAS}
 			,{url: "res/atlas/navi.atlas", type: Loader.ATLAS}
+			,{url: "res/atlas/resources/game.atlas", type: Loader.ATLAS}
+			,{url: "res/atlas/resources/home.atlas", type: Loader.ATLAS}
+			,{url: "res/atlas/resources/material.atlas", type: Loader.ATLAS}
+			,{url: "res/atlas/resources/navi.atlas", type: Loader.ATLAS}
+			,{url: "res/atlas/resources/settle.atlas", type: Loader.ATLAS}
 			,{url: "CubeBoom.ani", type: Loader.JSON}
 			,{url: "BallBoom.ani", type: Loader.JSON}
 			], Handler.create(this, onLoaded));
@@ -113,6 +118,22 @@ package {
 			,{url: "sound/cubeboom.wav", type: Loader.SOUND}
 			,{url: "sound/cubehit.wav", type: Loader.SOUND}
 			]);
+
+			//注册位图字体
+			var scoreNum = new Laya.BitmapFont();
+			scoreNum.loadFont("fonts/scoreNum.fnt", new Laya.Handler(this, function() {
+				Laya.Text.registerBitmapFont("scoreNum", scoreNum);
+			}));
+			
+			var goldNum = new Laya.BitmapFont();
+			goldNum.loadFont("fonts/goldNum.fnt", new Laya.Handler(this, function() {
+				Laya.Text.registerBitmapFont("goldNum", goldNum);
+			}));
+			
+			var maxScoreNum = new Laya.BitmapFont();
+			maxScoreNum.loadFont("fonts/maxScoreNum.fnt", new Laya.Handler(this, function() {
+				Laya.Text.registerBitmapFont("maxScoreNum", maxScoreNum);
+			}));
 			
 			WXSDK.showBanner();
 		}

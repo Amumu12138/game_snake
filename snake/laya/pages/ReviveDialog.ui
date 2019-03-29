@@ -2,7 +2,7 @@
     "x":0,
     "type":"Dialog",
     "selectedBox":1,
-    "selecteID":7,
+    "selecteID":19,
     "props":{"width":750,"sceneColor":"#000000","height":1334},
     "nodeParent":-1,
     "label":"Dialog",
@@ -15,9 +15,22 @@
         {
             "x":15,
             "type":"Image",
-            "props":{"y":342,"x":59,"skin":"settle/bgSettle.png"},
+            "props":{"var":"imgSlogan","top":150,"skin":"resources/settle/slogan_01.png","centerX":0},
             "nodeParent":1,
-            "label":"Image",
+            "label":"Image(imgSlogan)",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":14,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "props":{"y":280,"x":0,"skin":"resources/settle/imgBg.png","name":"imgBg"},
+            "nodeParent":1,
+            "label":"Image(imgBg)",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
@@ -28,7 +41,7 @@
         {
             "x":15,
             "type":"Label",
-            "props":{"y":495,"x":341,"var":"labCurScore","text":"60","fontSize":60,"color":"#ffffff"},
+            "props":{"y":424,"var":"labCurScore","text":"60","fontSize":60,"font":"scoreNum","color":"#ffffff","centerX":0,"bold":true},
             "nodeParent":1,
             "label":"Label(labCurScore)",
             "isDirectory":false,
@@ -36,27 +49,29 @@
             "hasChild":false,
             "compId":3,
             "child":[
-                ]
+                ],
+            "$HIDDEN":false
         },
         {
             "x":15,
-            "type":"Label",
-            "props":{"y":408,"x":315,"text":"分数","fontSize":60,"color":"#ffffff"},
+            "type":"Image",
+            "props":{"y":522,"x":229,"skin":"resources/settle/imgMaxScore.png","name":"imgMaxScore"},
             "nodeParent":1,
-            "label":"Label",
+            "label":"Image(imgMaxScore)",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
-            "compId":4,
+            "compId":15,
             "child":[
                 ]
         },
         {
             "x":15,
             "type":"Label",
-            "props":{"y":599,"x":437,"var":"labHighScore","text":"60","fontSize":40,"color":"#7c7c7c"},
+            "props":{"y":522,"x":392,"var":"labHighScore","text":"60","fontSize":30,"color":"#7c7c7c"},
             "nodeParent":1,
             "label":"Label(labHighScore)",
+            "isOpen":true,
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
@@ -66,21 +81,8 @@
         },
         {
             "x":15,
-            "type":"Label",
-            "props":{"y":599,"x":224,"text":"最高分","fontSize":40,"color":"#7c7c7c"},
-            "nodeParent":1,
-            "label":"Label",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":6,
-            "child":[
-                ]
-        },
-        {
-            "x":15,
             "type":"Button",
-            "props":{"y":665,"x":230,"var":"btnVideo","stateNum":"1","skin":"home/videorevive.png","scaleY":0.5,"scaleX":0.5},
+            "props":{"y":600,"x":261,"var":"btnVideo","stateNum":"3","skin":"resources/settle/btnRevive.png","scaleY":1,"scaleX":1},
             "nodeParent":1,
             "label":"Button(btnVideo)",
             "isDirectory":false,
@@ -93,21 +95,7 @@
         {
             "x":15,
             "type":"Button",
-            "props":{"y":865,"x":377,"visible":false,"var":"btnCoin","skin":"home/coinrevive.png"},
-            "nodeParent":1,
-            "label":"Button(btnCoin)",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":8,
-            "child":[
-                ],
-            "$HIDDEN":true
-        },
-        {
-            "x":15,
-            "type":"Button",
-            "props":{"y":891,"x":283,"var":"btnEnd","skin":"settle/btnEnd.png"},
+            "props":{"y":730,"x":295,"width":183,"var":"btnEnd","stateNum":"1","skin":"resources/home/game_control_selected.png","labelStrokeColor":"#ffffff","labelStroke":1,"labelSize":40,"label":"HOME","height":65},
             "nodeParent":1,
             "label":"Button(btnEnd)",
             "isDirectory":false,
@@ -120,42 +108,84 @@
         {
             "x":15,
             "type":"Image",
-            "props":{"y":708,"x":277,"width":196,"visible":false,"skin":"home/bgcoinnum.png","height":62},
+            "props":{"y":784,"x":269,"visible":false,"skin":"resources/settle/coin.png","name":"imgCoin"},
+            "nodeParent":1,
+            "label":"Image(imgCoin)",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":18,
+            "child":[
+                ],
+            "$HIDDEN":true
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "props":{"y":801,"x":334,"visible":false,"skin":"resources/settle/imgAdd.png","name":"imgAdd"},
+            "nodeParent":1,
+            "label":"Image(imgAdd)",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":20,
+            "child":[
+                ],
+            "$HIDDEN":true
+        },
+        {
+            "x":15,
+            "type":"Label",
+            "props":{"y":794,"x":351,"width":121,"visible":false,"var":"labCoin","text":"1000","height":44,"fontSize":40,"font":"Arial","color":"#ffffff","align":"center"},
+            "nodeParent":1,
+            "label":"Label(labCoin)",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":19,
+            "child":[
+                ],
+            "$HIDDEN":true
+        },
+        {
+            "x":15,
+            "type":"Button",
+            "props":{"y":875,"x":97,"var":"btnReceive","stateNum":"3","skin":"resources/settle/btnReceive.png","scaleY":1,"scaleX":1},
+            "nodeParent":1,
+            "label":"Button(btnReceive)",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":16,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Button",
+            "props":{"y":875,"x":421,"var":"btnDoubleReceive","stateNum":"3","skin":"resources/settle/btnDoubleReceive.png","scaleY":1,"scaleX":1},
+            "nodeParent":1,
+            "label":"Button(btnDoubleReceive)",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":17,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "props":{"y":-6,"x":758,"skin":"resources/settle/画板 1.png"},
             "nodeParent":1,
             "label":"Image",
-            "isOpen":true,
-            "isDirectory":true,
+            "isDirectory":false,
             "isAniNode":true,
-            "hasChild":true,
-            "compId":10,
+            "hasChild":false,
+            "compId":13,
             "child":[
-                {
-                    "x":30,
-                    "type":"Image",
-                    "props":{"y":3,"x":12,"skin":"home/revivecoins.png","scaleY":0.6,"scaleX":0.6},
-                    "nodeParent":10,
-                    "label":"Image",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":11,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"Label",
-                    "props":{"y":30,"x":148,"var":"labCoin","text":"0/5","fontSize":51,"font":"Arial","color":"#ffffff","anchorY":0.5,"anchorX":0.5,"align":"center"},
-                    "nodeParent":10,
-                    "label":"Label(labCoin)",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":12,
-                    "child":[
-                        ]
-                }],
-            "$HIDDEN":true
+                ],
+            "$HIDDEN":false
         }],
     "animations":[
         {

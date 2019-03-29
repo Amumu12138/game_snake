@@ -37990,104 +37990,6 @@ var VScrollBar=(function(_super){
 
 
 /**
-*使用 <code>VSlider</code> 控件，用户可以通过在滑块轨道的终点之间移动滑块来选择值。
-*<p> <code>VSlider</code> 控件采用垂直方向。滑块轨道从下往上扩展，而标签位于轨道的左右两侧。</p>
-*
-*@example <caption>以下示例代码，创建了一个 <code>VSlider</code> 实例。</caption>
-*package
-*{
-	*import laya.ui.HSlider;
-	*import laya.ui.VSlider;
-	*import laya.utils.Handler;
-	*public class VSlider_Example
-	*{
-		*private var vSlider:VSlider;
-		*public function VSlider_Example()
-		*{
-			*Laya.init(640,800);//设置游戏画布宽高。
-			*Laya.stage.bgColor="#efefef";//设置画布的背景颜色。
-			*Laya.loader.load(["resource/ui/vslider.png","resource/ui/vslider$bar.png"],Handler.create(this,onLoadComplete));//加载资源。
-			*}
-		*private function onLoadComplete():void
-		*{
-			*vSlider=new VSlider();//创建一个 VSlider 类的实例对象 vSlider 。
-			*vSlider.skin="resource/ui/vslider.png";//设置 vSlider 的皮肤。
-			*vSlider.min=0;//设置 vSlider 最低位置值。
-			*vSlider.max=10;//设置 vSlider 最高位置值。
-			*vSlider.value=2;//设置 vSlider 当前位置值。
-			*vSlider.tick=1;//设置 vSlider 刻度值。
-			*vSlider.x=100;//设置 vSlider 对象的属性 x 的值，用于控制 vSlider 对象的显示位置。
-			*vSlider.y=100;//设置 vSlider 对象的属性 y 的值，用于控制 vSlider 对象的显示位置。
-			*vSlider.changeHandler=new Handler(this,onChange);//设置 vSlider 位置变化处理器。
-			*Laya.stage.addChild(vSlider);//把 vSlider 添加到显示列表。
-			*}
-		*private function onChange(value:Number):void
-		*{
-			*trace("滑块的位置： value="+value);
-			*}
-		*}
-	*}
-*@example
-*Laya.init(640,800);//设置游戏画布宽高
-*Laya.stage.bgColor="#efefef";//设置画布的背景颜色
-*var vSlider;
-*Laya.loader.load(["resource/ui/vslider.png","resource/ui/vslider$bar.png"],laya.utils.Handler.create(this,onLoadComplete));//加载资源。
-*function onLoadComplete(){
-	*vSlider=new laya.ui.VSlider();//创建一个 VSlider 类的实例对象 vSlider 。
-	*vSlider.skin="resource/ui/vslider.png";//设置 vSlider 的皮肤。
-	*vSlider.min=0;//设置 vSlider 最低位置值。
-	*vSlider.max=10;//设置 vSlider 最高位置值。
-	*vSlider.value=2;//设置 vSlider 当前位置值。
-	*vSlider.tick=1;//设置 vSlider 刻度值。
-	*vSlider.x=100;//设置 vSlider 对象的属性 x 的值，用于控制 vSlider 对象的显示位置。
-	*vSlider.y=100;//设置 vSlider 对象的属性 y 的值，用于控制 vSlider 对象的显示位置。
-	*vSlider.changeHandler=new laya.utils.Handler(this,onChange);//设置 vSlider 位置变化处理器。
-	*Laya.stage.addChild(vSlider);//把 vSlider 添加到显示列表。
-	*}
-*function onChange(value){
-	*console.log("滑块的位置： value="+value);
-	*}
-*@example
-*import HSlider=laya.ui.HSlider;
-*import VSlider=laya.ui.VSlider;
-*import Handler=laya.utils.Handler;
-*class VSlider_Example {
-	*private vSlider:VSlider;
-	*constructor(){
-		*Laya.init(640,800);//设置游戏画布宽高。
-		*Laya.stage.bgColor="#efefef";//设置画布的背景颜色。
-		*Laya.loader.load(["resource/ui/vslider.png","resource/ui/vslider$bar.png"],Handler.create(this,this.onLoadComplete));//加载资源。
-		*}
-	*private onLoadComplete():void {
-		*this.vSlider=new VSlider();//创建一个 VSlider 类的实例对象 vSlider 。
-		*this.vSlider.skin="resource/ui/vslider.png";//设置 vSlider 的皮肤。
-		*this.vSlider.min=0;//设置 vSlider 最低位置值。
-		*this.vSlider.max=10;//设置 vSlider 最高位置值。
-		*this.vSlider.value=2;//设置 vSlider 当前位置值。
-		*this.vSlider.tick=1;//设置 vSlider 刻度值。
-		*this.vSlider.x=100;//设置 vSlider 对象的属性 x 的值，用于控制 vSlider 对象的显示位置。
-		*this.vSlider.y=100;//设置 vSlider 对象的属性 y 的值，用于控制 vSlider 对象的显示位置。
-		*this.vSlider.changeHandler=new Handler(this,this.onChange);//设置 vSlider 位置变化处理器。
-		*Laya.stage.addChild(this.vSlider);//把 vSlider 添加到显示列表。
-		*}
-	*private onChange(value:number):void {
-		*console.log("滑块的位置： value="+value);
-		*}
-	*}
-*@see laya.ui.Slider
-*/
-//class laya.ui.VSlider extends laya.ui.Slider
-var VSlider=(function(_super){
-	function VSlider(){
-		VSlider.__super.call(this);;
-	}
-
-	__class(VSlider,'laya.ui.VSlider',_super);
-	return VSlider;
-})(Slider)
-
-
-/**
 *<code>TextInput</code> 类用于创建显示对象以显示和输入文本。
 *
 *@example <caption>以下示例代码，创建了一个 <code>TextInput</code> 实例。</caption>
@@ -38410,6 +38312,104 @@ var TextInput=(function(_super){
 
 	return TextInput;
 })(Label)
+
+
+/**
+*使用 <code>VSlider</code> 控件，用户可以通过在滑块轨道的终点之间移动滑块来选择值。
+*<p> <code>VSlider</code> 控件采用垂直方向。滑块轨道从下往上扩展，而标签位于轨道的左右两侧。</p>
+*
+*@example <caption>以下示例代码，创建了一个 <code>VSlider</code> 实例。</caption>
+*package
+*{
+	*import laya.ui.HSlider;
+	*import laya.ui.VSlider;
+	*import laya.utils.Handler;
+	*public class VSlider_Example
+	*{
+		*private var vSlider:VSlider;
+		*public function VSlider_Example()
+		*{
+			*Laya.init(640,800);//设置游戏画布宽高。
+			*Laya.stage.bgColor="#efefef";//设置画布的背景颜色。
+			*Laya.loader.load(["resource/ui/vslider.png","resource/ui/vslider$bar.png"],Handler.create(this,onLoadComplete));//加载资源。
+			*}
+		*private function onLoadComplete():void
+		*{
+			*vSlider=new VSlider();//创建一个 VSlider 类的实例对象 vSlider 。
+			*vSlider.skin="resource/ui/vslider.png";//设置 vSlider 的皮肤。
+			*vSlider.min=0;//设置 vSlider 最低位置值。
+			*vSlider.max=10;//设置 vSlider 最高位置值。
+			*vSlider.value=2;//设置 vSlider 当前位置值。
+			*vSlider.tick=1;//设置 vSlider 刻度值。
+			*vSlider.x=100;//设置 vSlider 对象的属性 x 的值，用于控制 vSlider 对象的显示位置。
+			*vSlider.y=100;//设置 vSlider 对象的属性 y 的值，用于控制 vSlider 对象的显示位置。
+			*vSlider.changeHandler=new Handler(this,onChange);//设置 vSlider 位置变化处理器。
+			*Laya.stage.addChild(vSlider);//把 vSlider 添加到显示列表。
+			*}
+		*private function onChange(value:Number):void
+		*{
+			*trace("滑块的位置： value="+value);
+			*}
+		*}
+	*}
+*@example
+*Laya.init(640,800);//设置游戏画布宽高
+*Laya.stage.bgColor="#efefef";//设置画布的背景颜色
+*var vSlider;
+*Laya.loader.load(["resource/ui/vslider.png","resource/ui/vslider$bar.png"],laya.utils.Handler.create(this,onLoadComplete));//加载资源。
+*function onLoadComplete(){
+	*vSlider=new laya.ui.VSlider();//创建一个 VSlider 类的实例对象 vSlider 。
+	*vSlider.skin="resource/ui/vslider.png";//设置 vSlider 的皮肤。
+	*vSlider.min=0;//设置 vSlider 最低位置值。
+	*vSlider.max=10;//设置 vSlider 最高位置值。
+	*vSlider.value=2;//设置 vSlider 当前位置值。
+	*vSlider.tick=1;//设置 vSlider 刻度值。
+	*vSlider.x=100;//设置 vSlider 对象的属性 x 的值，用于控制 vSlider 对象的显示位置。
+	*vSlider.y=100;//设置 vSlider 对象的属性 y 的值，用于控制 vSlider 对象的显示位置。
+	*vSlider.changeHandler=new laya.utils.Handler(this,onChange);//设置 vSlider 位置变化处理器。
+	*Laya.stage.addChild(vSlider);//把 vSlider 添加到显示列表。
+	*}
+*function onChange(value){
+	*console.log("滑块的位置： value="+value);
+	*}
+*@example
+*import HSlider=laya.ui.HSlider;
+*import VSlider=laya.ui.VSlider;
+*import Handler=laya.utils.Handler;
+*class VSlider_Example {
+	*private vSlider:VSlider;
+	*constructor(){
+		*Laya.init(640,800);//设置游戏画布宽高。
+		*Laya.stage.bgColor="#efefef";//设置画布的背景颜色。
+		*Laya.loader.load(["resource/ui/vslider.png","resource/ui/vslider$bar.png"],Handler.create(this,this.onLoadComplete));//加载资源。
+		*}
+	*private onLoadComplete():void {
+		*this.vSlider=new VSlider();//创建一个 VSlider 类的实例对象 vSlider 。
+		*this.vSlider.skin="resource/ui/vslider.png";//设置 vSlider 的皮肤。
+		*this.vSlider.min=0;//设置 vSlider 最低位置值。
+		*this.vSlider.max=10;//设置 vSlider 最高位置值。
+		*this.vSlider.value=2;//设置 vSlider 当前位置值。
+		*this.vSlider.tick=1;//设置 vSlider 刻度值。
+		*this.vSlider.x=100;//设置 vSlider 对象的属性 x 的值，用于控制 vSlider 对象的显示位置。
+		*this.vSlider.y=100;//设置 vSlider 对象的属性 y 的值，用于控制 vSlider 对象的显示位置。
+		*this.vSlider.changeHandler=new Handler(this,this.onChange);//设置 vSlider 位置变化处理器。
+		*Laya.stage.addChild(this.vSlider);//把 vSlider 添加到显示列表。
+		*}
+	*private onChange(value:number):void {
+		*console.log("滑块的位置： value="+value);
+		*}
+	*}
+*@see laya.ui.Slider
+*/
+//class laya.ui.VSlider extends laya.ui.Slider
+var VSlider=(function(_super){
+	function VSlider(){
+		VSlider.__super.call(this);;
+	}
+
+	__class(VSlider,'laya.ui.VSlider',_super);
+	return VSlider;
+})(Slider)
 
 
 /**
@@ -40035,43 +40035,43 @@ var TextArea=(function(_super){
 
 
 /*
-1 file:///G:/layagame/snake/snake/src/com/bdoggame/EventConfig.as (15):warning:USERINFO This variable is not defined.
-2 file:///G:/layagame/snake/snake/src/com/bdoggame/EventConfig.as (16):warning:CONFIG This variable is not defined.
-3 file:///G:/layagame/snake/snake/src/com/bdoggame/EventConfig.as (19):warning:BTN_SHARE This variable is not defined.
-4 file:///G:/layagame/snake/snake/src/com/bdoggame/EventConfig.as (20):warning:BTN_RANK This variable is not defined.
-5 file:///G:/layagame/snake/snake/src/com/bdoggame/EventConfig.as (21):warning:BTN_CHALLENGE This variable is not defined.
-6 file:///G:/layagame/snake/snake/src/com/bdoggame/EventConfig.as (22):warning:BTN_AGAIN This variable is not defined.
-7 file:///G:/layagame/snake/snake/src/com/bdoggame/EventConfig.as (23):warning:BTN_REDBAG This variable is not defined.
-8 file:///G:/layagame/snake/snake/src/com/bdoggame/EventConfig.as (24):warning:BTN_REVIVE This variable is not defined.
-9 file:///G:/layagame/snake/snake/src/com/bdoggame/EventConfig.as (25):warning:BTN_SHARE_DAILY This variable is not defined.
-10 file:///G:/layagame/snake/snake/src/com/bdoggame/EventConfig.as (27):warning:POS_MORE This variable is not defined.
-11 file:///G:/layagame/snake/snake/src/com/bdoggame/EventConfig.as (28):warning:POS_LIKE This variable is not defined.
-12 file:///G:/layagame/snake/snake/src/com/bdoggame/EventConfig.as (29):warning:POS_DEF_HOME This variable is not defined.
-13 file:///G:/layagame/snake/snake/src/com/bdoggame/EventConfig.as (30):warning:POS_DEF_SETTLE This variable is not defined.
-14 file:///G:/layagame/snake/snake/src/com/bdoggame/HomeView.as (116):warning:any This variable is not defined.
-15 file:///G:/layagame/snake/snake/src/com/bdoggame/HomeView.as (117):warning:any This variable is not defined.
-16 file:///G:/layagame/snake/snake/src/com/bdoggame/HomeView.as (117):warning:any This variable is not defined.
-17 file:///G:/layagame/snake/snake/src/com/bdoggame/HomeView.as (211):warning:any This variable is not defined.
-18 file:///G:/layagame/snake/snake/src/com/bdoggame/HomeView.as (212):warning:any This variable is not defined.
-19 file:///G:/layagame/snake/snake/src/com/bdoggame/HomeView.as (248):warning:any This variable is not defined.
-20 file:///G:/layagame/snake/snake/src/com/bdoggame/HomeView.as (249):warning:any This variable is not defined.
-21 file:///G:/layagame/snake/snake/src/com/bdoggame/HomeView.as (265):warning:any This variable is not defined.
-22 file:///G:/layagame/snake/snake/src/com/bdoggame/HomeView.as (267):warning:any This variable is not defined.
-23 file:///G:/layagame/snake/snake/src/com/bdoggame/HomeView.as (290):warning:any This variable is not defined.
-24 file:///G:/layagame/snake/snake/src/com/bdoggame/HomeView.as (292):warning:any This variable is not defined.
-25 file:///G:/layagame/snake/snake/src/com/bdoggame/RedbagFetch.as (38):warning:any This variable is not defined.
-26 file:///G:/layagame/snake/snake/src/com/bdoggame/RedbagFetch.as (39):warning:any This variable is not defined.
-27 file:///G:/layagame/snake/snake/src/com/bdoggame/RedbagFetch.as (39):warning:any This variable is not defined.
-28 file:///G:/layagame/snake/snake/src/com/bdoggame/SettleDialog.as (51):warning:any This variable is not defined.
-29 file:///G:/layagame/snake/snake/src/com/bdoggame/SettleDialog.as (52):warning:any This variable is not defined.
-30 file:///G:/layagame/snake/snake/src/com/bdoggame/SettleDialog.as (64):warning:any This variable is not defined.
-31 file:///G:/layagame/snake/snake/src/com/bdoggame/SettleDialog.as (65):warning:any This variable is not defined.
-32 file:///G:/layagame/snake/snake/src/com/bdoggame/SettleDialog.as (113):warning:any This variable is not defined.
-33 file:///G:/layagame/snake/snake/src/com/bdoggame/SettleDialog.as (114):warning:any This variable is not defined.
-34 file:///G:/layagame/snake/snake/src/com/bdoggame/SettleDialog.as (114):warning:any This variable is not defined.
-35 file:///G:/layagame/snake/snake/src/com/bdoggame/SettleDialog.as (181):warning:any This variable is not defined.
-36 file:///G:/layagame/snake/snake/src/com/bdoggame/SettleDialog.as (182):warning:any This variable is not defined.
-37 file:///G:/layagame/snake/snake/src/com/bdoggame/SettleDialog.as (182):warning:any This variable is not defined.
+1 file:///E:/OldGame/snake/src/com/bdoggame/EventConfig.as (15):warning:USERINFO This variable is not defined.
+2 file:///E:/OldGame/snake/src/com/bdoggame/EventConfig.as (16):warning:CONFIG This variable is not defined.
+3 file:///E:/OldGame/snake/src/com/bdoggame/EventConfig.as (19):warning:BTN_SHARE This variable is not defined.
+4 file:///E:/OldGame/snake/src/com/bdoggame/EventConfig.as (20):warning:BTN_RANK This variable is not defined.
+5 file:///E:/OldGame/snake/src/com/bdoggame/EventConfig.as (21):warning:BTN_CHALLENGE This variable is not defined.
+6 file:///E:/OldGame/snake/src/com/bdoggame/EventConfig.as (22):warning:BTN_AGAIN This variable is not defined.
+7 file:///E:/OldGame/snake/src/com/bdoggame/EventConfig.as (23):warning:BTN_REDBAG This variable is not defined.
+8 file:///E:/OldGame/snake/src/com/bdoggame/EventConfig.as (24):warning:BTN_REVIVE This variable is not defined.
+9 file:///E:/OldGame/snake/src/com/bdoggame/EventConfig.as (25):warning:BTN_SHARE_DAILY This variable is not defined.
+10 file:///E:/OldGame/snake/src/com/bdoggame/EventConfig.as (27):warning:POS_MORE This variable is not defined.
+11 file:///E:/OldGame/snake/src/com/bdoggame/EventConfig.as (28):warning:POS_LIKE This variable is not defined.
+12 file:///E:/OldGame/snake/src/com/bdoggame/EventConfig.as (29):warning:POS_DEF_HOME This variable is not defined.
+13 file:///E:/OldGame/snake/src/com/bdoggame/EventConfig.as (30):warning:POS_DEF_SETTLE This variable is not defined.
+14 file:///E:/OldGame/snake/src/com/bdoggame/HomeView.as (118):warning:any This variable is not defined.
+15 file:///E:/OldGame/snake/src/com/bdoggame/HomeView.as (119):warning:any This variable is not defined.
+16 file:///E:/OldGame/snake/src/com/bdoggame/HomeView.as (119):warning:any This variable is not defined.
+17 file:///E:/OldGame/snake/src/com/bdoggame/HomeView.as (213):warning:any This variable is not defined.
+18 file:///E:/OldGame/snake/src/com/bdoggame/HomeView.as (214):warning:any This variable is not defined.
+19 file:///E:/OldGame/snake/src/com/bdoggame/HomeView.as (250):warning:any This variable is not defined.
+20 file:///E:/OldGame/snake/src/com/bdoggame/HomeView.as (251):warning:any This variable is not defined.
+21 file:///E:/OldGame/snake/src/com/bdoggame/HomeView.as (267):warning:any This variable is not defined.
+22 file:///E:/OldGame/snake/src/com/bdoggame/HomeView.as (269):warning:any This variable is not defined.
+23 file:///E:/OldGame/snake/src/com/bdoggame/HomeView.as (292):warning:any This variable is not defined.
+24 file:///E:/OldGame/snake/src/com/bdoggame/HomeView.as (294):warning:any This variable is not defined.
+25 file:///E:/OldGame/snake/src/com/bdoggame/RedbagFetch.as (38):warning:any This variable is not defined.
+26 file:///E:/OldGame/snake/src/com/bdoggame/RedbagFetch.as (39):warning:any This variable is not defined.
+27 file:///E:/OldGame/snake/src/com/bdoggame/RedbagFetch.as (39):warning:any This variable is not defined.
+28 file:///E:/OldGame/snake/src/com/bdoggame/SettleDialog.as (51):warning:any This variable is not defined.
+29 file:///E:/OldGame/snake/src/com/bdoggame/SettleDialog.as (52):warning:any This variable is not defined.
+30 file:///E:/OldGame/snake/src/com/bdoggame/SettleDialog.as (64):warning:any This variable is not defined.
+31 file:///E:/OldGame/snake/src/com/bdoggame/SettleDialog.as (65):warning:any This variable is not defined.
+32 file:///E:/OldGame/snake/src/com/bdoggame/SettleDialog.as (113):warning:any This variable is not defined.
+33 file:///E:/OldGame/snake/src/com/bdoggame/SettleDialog.as (114):warning:any This variable is not defined.
+34 file:///E:/OldGame/snake/src/com/bdoggame/SettleDialog.as (114):warning:any This variable is not defined.
+35 file:///E:/OldGame/snake/src/com/bdoggame/SettleDialog.as (181):warning:any This variable is not defined.
+36 file:///E:/OldGame/snake/src/com/bdoggame/SettleDialog.as (182):warning:any This variable is not defined.
+37 file:///E:/OldGame/snake/src/com/bdoggame/SettleDialog.as (182):warning:any This variable is not defined.
 */
 if (typeof define === 'function' && define.amd){
 	define('laya.core', ['require', "exports"], function(require, exports) {
@@ -40334,8 +40334,8 @@ var Global=(function(){
 //class com.bdoggame.mananger.NetworkManager
 var NetworkManager=(function(){
 	function NetworkManager(){
-		this.BASE_URL_GAME="https://www.i66wan.com/game";
-		this.BASE_URL_WEB="https://www.i66wan.com";
+		this.BASE_URL_GAME="https://www.i66wan.com/xyxgame";
+		this.BASE_URL_WEB="https://www.i66wan.com/game";
 		this._audit=false;
 		this._likeSwitch=false;
 		//猜你喜欢开关
@@ -40361,13 +40361,13 @@ var NetworkManager=(function(){
 		this.URL_JUDGE_REDBAG=this.BASE_URL_GAME+"/redbag/judge";
 		this.URL_LOGIN=this.BASE_URL_WEB+"/game/login";
 		this.URL_MYCS_LOGIN=this.BASE_URL_GAME+"/mycsLogin";
-		this.URL_CONFIG=this.BASE_URL_GAME+"/config";
+		this.URL_CONFIG=this.BASE_URL_WEB+"/config";
 		this.URL_REPORT=this.BASE_URL_GAME+"/report";
 		this.URL_SHAREID=this.BASE_URL_GAME+"/share/id";
 		this.URL_SHARELOGIN=this.BASE_URL_GAME+"/share/logined";
 		this.URL_VIDEO=this.BASE_URL_GAME+"/ad/click";
 		this.URL_VIDEO_CLOSE=this.BASE_URL_GAME+"/ad/close";
-		this.URL_REDIRECT=this.BASE_URL_GAME+"/redirect/click";
+		this.URL_REDIRECT=this.BASE_URL_WEB+"/redirect/click";
 		this.URL_REDIRECT_LOGIN=this.BASE_URL_GAME+"/redirect/logined";
 		this.URL_GAME_START=this.BASE_URL_GAME+"/start";
 		this.URL_GAME_END=this.BASE_URL_GAME+"/end";
@@ -41010,8 +41010,8 @@ var WXSDK=(function(){
 	WXSDK._userInfo=null;
 	WXSDK._redbagInfo=null;
 	WXSDK.GAME_ID=33008;
-	WXSDK.CHANNEL_ID="weixin.snake";
-	WXSDK.VERSION=100005;
+	WXSDK.CHANNEL_ID="weixin.tcstyt";
+	WXSDK.VERSION="100001";
 	WXSDK.PLAT_TYPE=1;
 	WXSDK._switch=false;
 	WXSDK._rewardedVideoAd1=null;
@@ -41047,6 +41047,7 @@ var Main=(function(){
 	function Main(){
 		MiniAdpter.init();
 		Laya.init(750,1334,WebGL);
+		console.log("Game Main");
 		Laya.stage.bgColor="#484B58";
 		Laya.stage.frameRate="fast";
 		if(Browser.onMobile)Laya.stage.screenMode="vertical";
@@ -41085,6 +41086,11 @@ var Main=(function(){
 		,{url:"res/atlas/redbag.atlas",type:"atlas"}
 		,{url:"res/atlas/settle.atlas",type:"atlas"}
 		,{url:"res/atlas/navi.atlas",type:"atlas"}
+		,{url:"res/atlas/resources/game.atlas",type:"atlas"}
+		,{url:"res/atlas/resources/home.atlas",type:"atlas"}
+		,{url:"res/atlas/resources/material.atlas",type:"atlas"}
+		,{url:"res/atlas/resources/navi.atlas",type:"atlas"}
+		,{url:"res/atlas/resources/settle.atlas",type:"atlas"}
 		,{url:"CubeBoom.ani",type:"json"}
 		,{url:"BallBoom.ani",type:"json"}],Handler.create(this,this.onLoaded));
 	}
@@ -41796,11 +41802,14 @@ var HomeViewUI=(function(_super){
 	function HomeViewUI(){
 		this.btnWelfare=null;
 		this.btnStart=null;
+		this.btnDouble=null;
+		this.btnRegister=null;
 		this.btnRank=null;
+		this.btnShop=null;
+		this.btnShare=null;
 		this.labCoin=null;
 		this.btnMoney=null;
 		this.labTotal=null;
-		this.btnShare=null;
 		this.bgLike=null;
 		this.listLike=null;
 		this.btnMore=null;
@@ -41819,7 +41828,7 @@ var HomeViewUI=(function(_super){
 		this.createView(HomeViewUI.uiView);
 	}
 
-	HomeViewUI.uiView={"type":"SceneView","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":0,"x":0,"skin":"home/homebg.png"}},{"type":"Button","props":{"x":210,"visible":false,"var":"btnWelfare","skin":"home/btnwelfare.png","bottom":250}},{"type":"Button","props":{"y":716,"x":230,"var":"btnStart","stateNum":1,"skin":"home/btnstart.png","scaleY":0.5,"scaleX":0.5}},{"type":"Button","props":{"x":321,"visible":false,"var":"btnRank","skin":"home/imgrank.png","bottom":100}},{"type":"Image","props":{"x":49,"width":196,"visible":false,"top":100,"skin":"home/bgcoinnum.png","height":62},"child":[{"type":"Image","props":{"y":0,"x":11,"skin":"home/revivecoins.png","scaleY":0.6,"scaleX":0.6}},{"type":"Label","props":{"y":31,"x":147,"var":"labCoin","text":"0/5","fontSize":50,"font":"Arial","color":"#ffffff","anchorY":0.5,"anchorX":0.5,"align":"center"}}]},{"type":"Image","props":{"x":130,"top":203,"skin":"home/logo.png","scaleY":0.5,"scaleX":0.5}},{"type":"Button","props":{"y":771,"x":620,"visible":false,"var":"btnMoney","stateNum":1,"skin":"redbag/btnMoney.png"},"child":[{"type":"Label","props":{"y":125,"x":69,"var":"labTotal","text":"----礼券","fontSize":20,"color":"#ffffff","anchorY":0.5,"anchorX":0.5}}]},{"type":"Button","props":{"y":535,"x":652,"visible":false,"var":"btnShare","skin":"home/btnShare.png"}},{"type":"Image","props":{"y":918,"x":193,"visible":false,"var":"bgLike","skin":"navi/bgLike.png","scaleY":0.8,"scaleX":0.8},"child":[{"type":"List","props":{"y":22,"x":83,"var":"listLike","spaceX":25},"child":[{"type":"Button","props":{"y":0,"x":0,"width":100,"stateNum":1,"renderType":"render","height":100},"child":[{"type":"Image","props":{"y":-19,"x":81,"visible":false,"skin":"navi/unread.png","name":"imgUnread"}}]}]}]},{"type":"Button","props":{"y":538,"x":0,"visible":false,"var":"btnMore","skin":"navi/btnMore.png"},"child":[{"type":"Image","props":{"y":-9,"x":103,"skin":"navi/redspot.png"}}]},{"type":"Button","props":{"y":773,"x":0,"width":100,"visible":false,"var":"btnAd","left":0,"height":100},"child":[{"type":"Image","props":{"y":-21,"x":74,"skin":"navi/unread.png"}}]},{"type":"Panel","props":{"y":0,"x":-745,"width":750,"var":"panMore","mouseThrough":false,"mouseEnabled":true,"height":1400},"child":[{"type":"Image","props":{"y":0,"x":0,"width":750,"skin":"home/game_control_selected.png","sizeGrid":"0,0,0,0","height":1400}},{"type":"Image","props":{"y":471,"x":0,"var":"bgMore","skin":"navi/bgMore.png"},"child":[{"type":"List","props":{"y":13,"x":5,"var":"listMore","spaceY":25,"spaceX":25},"child":[{"type":"Button","props":{"y":0,"x":0,"width":100,"stateNum":1,"renderType":"render","height":100}}]},{"type":"Button","props":{"y":136,"x":370,"var":"btnClose","skin":"navi/btnClose.png"}}]}]}]};
+	HomeViewUI.uiView={"type":"SceneView","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":0,"x":0,"skin":"resources/home/Snake_Bg_750-1334.png"}},{"type":"Button","props":{"x":210,"visible":false,"var":"btnWelfare","skin":"home/btnwelfare.png","bottom":250}},{"type":"Button","props":{"y":560,"x":150,"var":"btnStart","stateNum":1,"skin":"resources/home/btnSingle.png","scaleY":1,"scaleX":1}},{"type":"Button","props":{"y":560,"x":411,"var":"btnDouble","stateNum":1,"skin":"resources/home/btnDouble.png","scaleY":1,"scaleX":1,"disabled":true}},{"type":"Button","props":{"visible":true,"var":"btnRegister","top":60,"stateNum":1,"skin":"resources/home/btnRegister.png","right":20,"disabled":true}},{"type":"Button","props":{"visible":true,"var":"btnRank","top":180,"stateNum":1,"skin":"resources/home/btnRank.png","right":20,"disabled":true}},{"type":"Button","props":{"visible":true,"var":"btnShop","top":300,"stateNum":1,"skin":"resources/home/btnShop.png","right":20,"disabled":true}},{"type":"Button","props":{"visible":true,"var":"btnShare","top":420,"stateNum":1,"skin":"resources/home/btnShare.png","right":20,"disabled":true}},{"type":"Image","props":{"x":49,"width":196,"visible":false,"top":100,"skin":"home/bgcoinnum.png","height":62},"child":[{"type":"Image","props":{"y":0,"x":11,"skin":"home/revivecoins.png","scaleY":0.6,"scaleX":0.6}},{"type":"Label","props":{"y":31,"x":147,"var":"labCoin","text":"0/5","fontSize":50,"font":"Arial","color":"#ffffff","anchorY":0.5,"anchorX":0.5,"align":"center"}}]},{"type":"Image","props":{"x":150,"visible":true,"top":131,"skin":"resources/home/imgTitle_01.png","scaleY":0.8,"scaleX":0.8}},{"type":"Button","props":{"y":771,"x":620,"visible":false,"var":"btnMoney","stateNum":1,"skin":"redbag/btnMoney.png"},"child":[{"type":"Label","props":{"y":125,"x":69,"var":"labTotal","text":"----礼券","fontSize":20,"color":"#ffffff","anchorY":0.5,"anchorX":0.5}}]},{"type":"Image","props":{"y":918,"x":193,"visible":false,"var":"bgLike","skin":"navi/bgLike.png","scaleY":0.8,"scaleX":0.8},"child":[{"type":"List","props":{"y":22,"x":83,"var":"listLike","spaceX":25},"child":[{"type":"Button","props":{"y":0,"x":0,"width":100,"stateNum":1,"renderType":"render","height":100},"child":[{"type":"Image","props":{"y":-19,"x":81,"visible":false,"skin":"navi/unread.png","name":"imgUnread"}}]}]}]},{"type":"Button","props":{"y":538,"x":0,"visible":false,"var":"btnMore","stateNum":1,"skin":"resources/home/btnMore.png"},"child":[{"type":"Image","props":{"y":-9,"x":103,"skin":"navi/redspot.png"}}]},{"type":"Button","props":{"y":773,"x":0,"width":100,"visible":false,"var":"btnAd","left":0,"height":100},"child":[{"type":"Image","props":{"y":-21,"x":74,"skin":"navi/unread.png"}}]},{"type":"Panel","props":{"y":0,"x":-745,"width":750,"var":"panMore","mouseThrough":false,"mouseEnabled":true,"height":1400},"child":[{"type":"Image","props":{"y":0,"x":0,"width":750,"skin":"home/game_control_selected.png","sizeGrid":"0,0,0,0","height":1400}},{"type":"Image","props":{"y":459,"x":9,"width":430,"var":"bgMore","skin":"resources/home/imgGroup.png","height":382},"child":[{"type":"List","props":{"y":13,"x":5,"var":"listMore","spaceY":25,"spaceX":25},"child":[{"type":"Button","props":{"y":0,"x":0,"width":100,"stateNum":1,"renderType":"render","height":100}}]},{"type":"Button","props":{"y":136,"x":370,"width":61,"var":"btnClose","height":100}}]}]}]};
 	return HomeViewUI;
 })(SceneView)
 
@@ -41944,11 +41953,14 @@ var RedbagShopUI=(function(_super){
 //class ui.ReviveDialogUI extends laya.ui.Dialog
 var ReviveDialogUI=(function(_super){
 	function ReviveDialogUI(){
+		this.imgSlogan=null;
 		this.labCurScore=null;
 		this.labHighScore=null;
 		this.btnVideo=null;
 		this.btnCoin=null;
 		this.btnEnd=null;
+		this.btnReceive=null;
+		this.btnDoubleReceive=null;
 		this.labCoin=null;
 		ReviveDialogUI.__super.call(this);
 	}
@@ -41960,7 +41972,7 @@ var ReviveDialogUI=(function(_super){
 		this.createView(ReviveDialogUI.uiView);
 	}
 
-	ReviveDialogUI.uiView={"type":"Dialog","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":342,"x":59,"skin":"settle/bgSettle.png"}},{"type":"Label","props":{"y":495,"x":341,"var":"labCurScore","text":"60","fontSize":60,"color":"#ffffff"}},{"type":"Label","props":{"y":408,"x":315,"text":"分数","fontSize":60,"color":"#ffffff"}},{"type":"Label","props":{"y":599,"x":437,"var":"labHighScore","text":"60","fontSize":40,"color":"#7c7c7c"}},{"type":"Label","props":{"y":599,"x":224,"text":"最高分","fontSize":40,"color":"#7c7c7c"}},{"type":"Button","props":{"y":665,"x":230,"var":"btnVideo","stateNum":1,"skin":"home/videorevive.png","scaleY":0.5,"scaleX":0.5}},{"type":"Button","props":{"y":865,"x":377,"visible":false,"var":"btnCoin","skin":"home/coinrevive.png"}},{"type":"Button","props":{"y":891,"x":283,"var":"btnEnd","skin":"settle/btnEnd.png"}},{"type":"Image","props":{"y":708,"x":277,"width":196,"visible":false,"skin":"home/bgcoinnum.png","height":62},"child":[{"type":"Image","props":{"y":3,"x":12,"skin":"home/revivecoins.png","scaleY":0.6,"scaleX":0.6}},{"type":"Label","props":{"y":30,"x":148,"var":"labCoin","text":"0/5","fontSize":51,"font":"Arial","color":"#ffffff","anchorY":0.5,"anchorX":0.5,"align":"center"}}]}]};
+	ReviveDialogUI.uiView={"type":"Dialog","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"var":"imgSlogan","top":150,"skin":"resources/settle/slogan_01.png","centerX":0}},{"type":"Image","props":{"y":280,"x":0,"skin":"resources/settle/imgBg.png"}},{"type":"Label","props":{"y":424,"x":335,"var":"labCurScore","text":"60","fontSize":60,"color":"#ffffff","bold":true}},{"type":"Image","props":{"y":528,"x":229,"skin":"resources/settle/imgMaxScore.png","name":"imgMaxScore"}},{"type":"Label","props":{"y":522,"x":410,"var":"labHighScore","text":"60","fontSize":40,"color":"#7c7c7c"}},{"type":"Button","props":{"y":605,"x":261,"var":"btnVideo","stateNum":3,"skin":"resources/settle/btnRevive.png","scaleY":1,"scaleX":1}},{"type":"Button","props":{"y":769,"x":221,"visible":false,"var":"btnCoin","skin":"home/coinrevive.png"}},{"type":"Button","props":{"y":730,"x":295,"width":183,"var":"btnEnd","skin":"settle/btnEnd.png","height":28}},{"type":"Button","props":{"y":875,"x":97,"var":"btnReceive","stateNum":3,"skin":"resources/settle/btnReceive.png","scaleY":1,"scaleX":1}},{"type":"Button","props":{"y":864,"x":421,"var":"btnDoubleReceive","stateNum":3,"skin":"resources/settle/btnDoubleReceive.png","scaleY":1,"scaleX":1}},{"type":"Image","props":{"y":708,"x":277,"width":196,"visible":false,"skin":"home/bgcoinnum.png","height":62},"child":[{"type":"Image","props":{"y":3,"x":12,"skin":"home/revivecoins.png","scaleY":0.6,"scaleX":0.6}},{"type":"Label","props":{"y":30,"x":148,"var":"labCoin","text":"0/5","fontSize":51,"font":"Arial","color":"#ffffff","anchorY":0.5,"anchorX":0.5,"align":"center"}}]},{"type":"Image","props":{"y":-6,"x":758,"skin":"resources/settle/画板 1.png"}}]};
 	return ReviveDialogUI;
 })(Dialog)
 
@@ -41968,6 +41980,7 @@ var ReviveDialogUI=(function(_super){
 //class ui.SettleDialogUI extends laya.ui.Dialog
 var SettleDialogUI=(function(_super){
 	function SettleDialogUI(){
+		this.imgSlogan=null;
 		this.btnHome=null;
 		this.btnAgain=null;
 		this.labCurScore=null;
@@ -41986,7 +41999,7 @@ var SettleDialogUI=(function(_super){
 		this.createView(SettleDialogUI.uiView);
 	}
 
-	SettleDialogUI.uiView={"type":"Dialog","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":409,"x":59,"skin":"settle/bgSettle.png"}},{"type":"Button","props":{"y":927,"x":413,"var":"btnHome","skin":"settle/btnHome.png"}},{"type":"Button","props":{"y":927,"x":233,"var":"btnAgain","skin":"settle/btnAgain.png"}},{"type":"Label","props":{"y":571,"x":341,"var":"labCurScore","text":"50","fontSize":60,"color":"#ffffff"}},{"type":"Label","props":{"y":659,"x":448,"var":"labHighScore","text":"50","fontSize":40,"color":"#7c7c7c"}},{"type":"Label","props":{"y":477,"x":315,"text":"分数","fontSize":60,"color":"#ffffff"}},{"type":"Label","props":{"y":659,"x":240,"text":"最高分","fontSize":40,"color":"#7c7c7c"}},{"type":"Button","props":{"y":313,"x":627,"visible":false,"var":"btnMoney","stateNum":1,"skin":"redbag/btnMoney.png"},"child":[{"type":"Label","props":{"y":125,"x":70,"var":"labTotal","text":"----礼券","fontSize":20,"color":"#ffffff","anchorY":0.5,"anchorX":0.5}}]},{"type":"Button","props":{"y":313,"x":0,"width":100,"visible":false,"var":"btnAd","left":0,"height":100},"child":[{"type":"Image","props":{"y":-21,"x":74,"skin":"navi/unread.png"}}]},{"type":"Button","props":{"y":736,"x":220,"visible":false,"var":"btnChallenge","skin":"settle/btnChallenge.png"}}]};
+	SettleDialogUI.uiView={"type":"Dialog","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":162,"x":128,"var":"imgSlogan","skin":"resources/settle/slogan_01.png"}},{"type":"Image","props":{"y":280,"x":0,"skin":"resources/settle/imgBg.png"}},{"type":"Button","props":{"y":927,"x":413,"var":"btnHome","skin":"settle/btnHome.png"}},{"type":"Button","props":{"y":927,"x":233,"var":"btnAgain","skin":"settle/btnAgain.png"}},{"type":"Label","props":{"y":454,"x":345,"var":"labCurScore","text":"50","fontSize":60,"color":"#ffffff"}},{"type":"Label","props":{"y":550,"x":400,"var":"labHighScore","text":"50","fontSize":40,"color":"#7c7c7c"}},{"type":"Label","props":{"y":550,"x":240,"text":"最高分","fontSize":40,"color":"#7c7c7c"}},{"type":"Button","props":{"y":313,"x":627,"visible":false,"var":"btnMoney","stateNum":1,"skin":"redbag/btnMoney.png"},"child":[{"type":"Label","props":{"y":125,"x":70,"var":"labTotal","text":"----礼券","fontSize":20,"color":"#ffffff","anchorY":0.5,"anchorX":0.5}}]},{"type":"Button","props":{"y":313,"x":0,"width":100,"visible":false,"var":"btnAd","left":0,"height":100},"child":[{"type":"Image","props":{"y":-21,"x":74,"skin":"navi/unread.png"}}]},{"type":"Button","props":{"y":736,"x":220,"visible":false,"var":"btnChallenge","skin":"settle/btnChallenge.png"}}]};
 	return SettleDialogUI;
 })(Dialog)
 
@@ -42949,10 +42962,7 @@ var HomeView=(function(_super){
 		this.btnMore.on("click",this,this.onMoreClick);
 		this.btnClose.on("click",this,this.onCloseClick);
 		this.btnAd.on("click",this,this.onAdClick);
-		Laya.timer.once(1000,this,function(){
-			this.showRedbag();
-		});
-		this.btnMoney.visible=NetworkManager.instance()._redbagSwitch;
+		this.btnMoney.visible=false;
 		this.initConf();
 	}
 
@@ -43053,7 +43063,6 @@ var HomeView=(function(_super){
 	}
 
 	__proto.setMoney=function(){
-		this.btnMoney.visible=NetworkManager.instance()._redbagSwitch;
 		if (NetworkManager.instance()._redbagInfo >=0){
 			if (NetworkManager.instance()._unfetched){
 				this.labTotal.text="未领取";

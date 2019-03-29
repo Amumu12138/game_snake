@@ -15,7 +15,7 @@ package com.bdoggame
 	import laya.ui.Button;
 	import com.bdoggame.ViewUtils;
 	/**
-	 * 主页面UI
+	 * ...
 	 * @author ...
 	 */
 	public class HomeView extends HomeViewUI 
@@ -31,10 +31,8 @@ package com.bdoggame
 		}
 		
 		private var _redbagRd = -1;
-		//构造函数
 		public function HomeView() 
 		{
-			//注册系列点击事件
 			this.btnRank.on(Event.CLICK, this, onRankClick);
 			this.btnStart.on(Event.CLICK, this, onStartClick);
 			this.btnWelfare.on(Event.CLICK, this, onWelfareClick);
@@ -46,14 +44,16 @@ package com.bdoggame
 			this.btnMore.on(Event.CLICK, this, this.onMoreClick);
 			this.btnClose.on(Event.CLICK, this, this.onCloseClick);
 			this.btnAd.on(Event.CLICK, this, this.onAdClick);
-			Laya.timer.once(1000, this, function ():void 
-			{
-				this.showRedbag();
-			});
-			this.btnMoney.visible = NetworkManager.instance()._redbagSwitch;
+			// Laya.timer.once(1000, this, function ():void 
+			// {
+			// 	this.showRedbag();
+			// });
+			//显示礼卷红包
+			//this.btnMoney.visible = NetworkManager.instance()._redbagSwitch;
+			this.btnMoney.visible = false;
 			this.initConf();
 		}
-		//@description: 显示红包
+
 		private function showRedbag(){
 			var redbag = LocalStorage.getItem("REDBAG_FETCHED");
 			console.log("ricardo redbag " + redbag);
@@ -71,7 +71,7 @@ package com.bdoggame
 				})
 			}
 		}
-		//@description: 点击分享
+		
 		private function onShareClick():void 
 		{
 			NetworkManager.instance().shareId(EventConfig.BTN_SHARE, function(res){
@@ -83,17 +83,17 @@ package com.bdoggame
 				}
 			});
 		}
-		//@description：点击福利
+		
 		private function onWelfareClick(){
 			GameSDK.onCoinVideo();
 		}
-		//@description: 点击开始
+		
 		private function onStartClick(){
 			var gameView:GameView = GameView.instance();
 			NetworkManager.instance().startGame();
 			SceneManager.instance.replaceScene(gameView);
 		}
-		//@description: 显示金币
+		
 		private function showMoney():void 
 		{
 			if (NetworkManager.instance()._unfetched){
@@ -105,7 +105,7 @@ package com.bdoggame
 				RedbagGot.instance().popup();
 			}
 		}
-		//@desctiption: 分享红包
+		
 		private function fetchRedbag():void 
 		{
 			var self = this;
@@ -138,7 +138,7 @@ package com.bdoggame
 				});
 			}
 		}
-		//@description: 打开红包
+		
 		private function redbagOpen():void 
 		{
 			NetworkManager.instance()._unfetched = false;
@@ -156,10 +156,10 @@ package com.bdoggame
 				}
 			}, null);
 		}
-		//@description: 设置金币
+		
 		private function setMoney():void 
 		{
-			this.btnMoney.visible = NetworkManager.instance()._redbagSwitch;
+			//this.btnMoney.visible = NetworkManager.instance()._redbagSwitch;
 			if (NetworkManager.instance()._redbagInfo >= 0){
 				if (NetworkManager.instance()._unfetched){
 					this.labTotal.text = "未领取";
@@ -170,11 +170,11 @@ package com.bdoggame
 				}
 			}
 		}
-		//@description: 点击排行榜
+		
 		private function onRankClick(){
 			GameSDK.onRank();
 		}
-		//@description: 设置硬币
+		
 		public function setCoin(){
 			var coin:int = LocalStorage.getItem("COIN_NUM",0) == null? 0: LocalStorage.getItem("COIN_NUM",0);
 			this.labCoin.text = coin + "/5";
@@ -182,11 +182,11 @@ package com.bdoggame
 			
 			this.setMoney();
 		}
-		//@description: 更新福利状态
+		
 		private function updateWelfareStatus(coin){
 			this.btnWelfare.visible = coin < 5;
 		}
-		//@description: 更新硬币事件
+		
 		private function eventCoinUpdate(){
 			var coin:int = LocalStorage.getItem("COIN_NUM",0) == null? 0: LocalStorage.getItem("COIN_NUM",0);
 			console.log("ricardo event coin update " + coin);
@@ -214,7 +214,7 @@ package com.bdoggame
 					this.btnAd.loadImage((ad[adIndex % ad.length] as any).icon);
 					ViewUtils.shake(this.btnAd);
 				}
-				//猜你喜欢
+
 				var like = config.config.like;
 				if(NetworkManager.instance()._likeSwitch && like.length >0){
 					this.bgLike.visible = true;
@@ -223,7 +223,7 @@ package com.bdoggame
 					this.listLike.repeatX = like.length >= 3?3:like.length;
 					this.listLike.array = like;
 				}
-				//更多游戏
+
 				var more = config.config.more;
 				if(NetworkManager.instance()._moreSwitch && more.length >0){
 					this.btnMore.visible = true;
@@ -237,7 +237,7 @@ package com.bdoggame
 				}
 			}
 		}
-		//@description: 点击添加
+
 		private function onAdClick(button){
 			var me = this;
 			var data = button.currentTarget.dataSource;
@@ -252,7 +252,6 @@ package com.bdoggame
 			});
 			NetworkManager.instance().redirectClick(data.appId, EventConfig.POS_DEF_HOME);
 		}
-		//@description: 点击更多
 		private function onMoreClick(){
 			Laya.Tween.to(this.panMore, { x: 0 }, 1000, Laya.Ease.expoInOut, null, 0);
 		}
@@ -260,7 +259,7 @@ package com.bdoggame
 		private function onCloseClick(){
 			Laya.Tween.to(this.panMore, { x: -745 }, 1000, Laya.Ease.expoIn, null, 0);
 		}
-		//@description: 点击更多图标
+
 		private function onMoreItemClick(button){
 			var name = button;
 			var data = button.currentTarget.dataSource;
@@ -269,11 +268,10 @@ package com.bdoggame
 			});
 			NetworkManager.instance().redirectClick(data.appId, EventConfig.POS_MORE+(button as any).currentTarget.name);
 		}
-		//@description: 选择'猜你喜欢'
+
 		private function likeSelect(index){
 			console.log("ricardo likeselect "+index);
 		}
-		//@description: 更新'猜你喜欢'
 		private function likeUpdate(cell:Laya.Box, index){
 			console.log("ricardo likeUpdate "+index + " "+cell.dataSource);
 			var btn = cell as Button;
@@ -286,7 +284,7 @@ package com.bdoggame
 			btn.loadImage(cell.dataSource.icon);
 			btn.on(Laya.Event.CLICK, this, this.onLikeClick);
 		}
-		//@description: 点击'猜你喜欢'
+
 		private function onLikeClick(button){
 			var name = button;
 			var data = button.currentTarget.dataSource;
@@ -295,12 +293,11 @@ package com.bdoggame
 			});
 			NetworkManager.instance().redirectClick(data.appId, EventConfig.POS_LIKE+(button as any).currentTarget.name);
 		}
-		//@description: 选择'更多游戏'
+
 		private function moreSelect(index){
 			console.log("ricardo moreSelect "+index);
 
 		}
-		//@description: 更新'更多游戏'
 		private function moreUpdate(cell:Laya.Box, index){
 			console.log("ricardo moreUpdate "+index + " "+cell.dataSource);
 

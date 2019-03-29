@@ -15,7 +15,7 @@
         {
             "x":15,
             "type":"Image",
-            "props":{"y":301,"x":80,"width":800,"skin":"settle/bgInvite.png","scaleY":0.6,"scaleX":0.6,"height":600},
+            "props":{"y":301,"x":80,"width":800,"scaleY":0.6,"scaleX":0.6,"height":600},
             "nodeParent":1,
             "label":"Image",
             "isDirectory":false,
@@ -28,7 +28,7 @@
         {
             "x":15,
             "type":"Button",
-            "props":{"y":686,"x":209,"var":"btnShare","skin":"settle/btnInvite.png"},
+            "props":{"y":686,"x":209,"var":"btnShare"},
             "nodeParent":1,
             "label":"Button(btnShare)",
             "isDirectory":false,
@@ -41,7 +41,7 @@
         {
             "x":15,
             "type":"Button",
-            "props":{"y":286,"x":544,"var":"btnClose","stateNum":"1","skin":"settle/btnClose.png"},
+            "props":{"y":286,"x":544,"var":"btnClose","stateNum":"1"},
             "nodeParent":1,
             "label":"Button(btnClose)",
             "isDirectory":false,

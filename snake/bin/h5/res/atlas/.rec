@@ -1,40 +1,13 @@
 D .
-R 39B957DA texture.png
-D comp
-P D12221A9 bg.png
-P 9401CC40 blank.png
-P B03390E5 btn_close.png
-P 1F3929EA button.png
-P 6CC6DF97 checkbox.png
-P FB94CCF2 clip_num.png
-P F7B6B7D7 clip_selectBox.png
-P 755271AE clip_tree_arrow.png
-P 859FD34C clip_tree_folder.png
-P A0E3B8F9 combobox.png
-P 9EDA959E hscroll$bar.png
-P 1AB768D4 hscroll$down.png
-P 685261D3 hscroll$up.png
-P 274B8076 hscroll.png
-P E466EB1C hslider$bar.png
-P C4BECA54 hslider.png
-P 5EDC128C html.png
-P ACFFCCCF image.png
-P 5EDC128C label.png
-P 5EDC128C linkbutton.png
-P 9E4DD730 progress$bar.png
-P 3FD78E12 progress.png
-P BF898D6A radio.png
-P BF898D6A radiogroup.png
-P 8CFD9D35 tab.png
-P BDA71F88 textarea.png
-P BDA71F88 textinput.png
-P 52107B89 vscroll$bar.png
-P E26B933E vscroll$down.png
-P B9680947 vscroll$up.png
-P 7E990267 vscroll.png
-P E466EB1C vslider$bar.png
-P 2BFF7046 vslider.png
-D game
+D fonts
+R 20B1A7FC goldNum.fnt
+P A4D2C90B goldNum.png
+R 03C49CD6 maxScoreNum.fnt
+P 9CA085F1 maxScoreNum.png
+R 7E8099E8 scoreNum.fnt
+P CCA9E36C scoreNum.png
+D resources
+D resources/game
 P DAE37A09 CubeBoom_00.png
 P 9F78B3AA CubeBoom_01.png
 P 01CDA2A8 CubeBoom_02.png
@@ -58,6 +31,8 @@ P DC5D9CDC CubeBoom_19.png
 P 9DB31716 CubeBoom_20.png
 P 058D2D50 CubeBoom_21.png
 P 248CDB5C CubeBoom_22.png
+P 0690F23C default_snake_body.png
+P F6FF5269 default_snake_head.png
 P E7C2EF36 SmallBoom_01.png
 P 537A5C37 SmallBoom_02.png
 P 2E515F3F SmallBoom_03.png
@@ -69,64 +44,61 @@ P C7C8ED32 SmallBoom_08.png
 P 98E4E22C SmallBoom_09.png
 P 5DB95D40 SmallBoom_10.png
 P 71B75C4E Snake_Ball.png
-R 6F14BF48 Snake_BG.png
+P 6F14BF48 Snake_BG.png
 P 26696326 Snake_Cube_01.png
 P F8B7CE38 Snake_Cube_02.png
 P EA845896 Snake_Cube_03.png
 P 52658EE5 Snake_Cube_04.png
 P 527866D2 Snake_Cube_05.png
 P 9EC7DE65 Snake_Cube_Spec.png
-R 8798716C Snake_Num_01.png
-P 7B8CA1E4 Snake_Num_02.png
 P AFDA8DFA Snake_Wall.png
-D home
-P CEB37D89 bgcoinnum.png
-R 3197B379 bggetcoins.png
-R ECDB26DF bgremovelines.png
-R 36804BC4 bottombg.png
-P 74165E05 btnClose.png
-P BB0E7F8F btnShare.png
-R 257FFC5B btnstart.png
-P E9985001 btnwelfare.png
-P DFA7D769 coinrevive.png
+D resources/gameBG
+P 8C1D88D2 desert_01.png
+P 365B9505 desert_02.png
+P DF6A0A10 desert_03.png
+P 73E4D946 street_01.png
+P 20A7DFEC street_02.png
+P 8578E886 street_03.png
+D resources/home
+P E770F6F8 btnDouble.png
+P 97C8DE8C btnMore.png
+P F092EFFE btnRank.png
+P C52EC79D btnRegister.png
+P 010D9339 btnShare.png
+P C1BB45FA btnShop.png
+P 86C6A8BE btnSingle.png
 P B696C501 game_control_selected.png
-R 4CB43C7E homebg.png
-P 969DCBAB imgrank.png
-R 217CE093 logo.png
-P A29B2A3D revivecoins.png
-P 2170F9D3 toolsbg.png
-R 97306714 videorevive.png
-D navi
+P 0717EB1A imgGroup.png
+P 13D1E7E1 imgTitle_01.png
+P CF73AFC5 Snake_Bg_750-1334.png
+R CF41C730 画板 1.png
+D resources/material
+P 1F95DB02 cat.png
+P 7A170314 dog.png
+P AB91C73F dragon.png
+P DC288A16 mouse.png
+P C39E7422 rabbit.png
+P 9BDE3EA8 tiger.png
+D resources/navi
 P 4A091321 bgLike.png
-P FAB11985 bgMore.png
-P 3F3D6791 btnClose.png
-P DF52A4DA btnMore.png
 P 20C0FF6D redspot.png
 P 75981874 unread.png
-D redbag
-R 42213F64 bgFetch.png
-R 18F8D003 bgShop.png
-P 5183BE1C btncharge.png
-P BBEE5DC3 btnClose.png
-P 66790CBE btnFetch.png
-P 0EB104AB btnMoney.png
-P 91CAA8E5 btnWithdraw.png
-P E5967EF3 giftlogo.png
-R C217905A itemrank.png
-R 103D5307 shopitem.png
-P 5ED88DF7 titlecong.png
-P 2C9E5FA1 yuan100.png
-P F91CA3CD yuan20.png
-P 80284B81 yuan50.png
-P 56AC1AB1 yuan700.png
-D settle
-R EB3CB2BF bgInvite.png
-R BA150738 bgSettle.png
-P 4440C37B btnAgain.png
-P 1E78F534 btnChallenge.png
-P 098A1AE3 btnClose.png
-P 51D702DE btnEnd.png
-P BF8CC77B btnHome.png
-P 7AED1181 btnInvite.png
-R 4D5396CC labNum1.png
-R 4D5396CC labNum2.png
+D resources/settle
+P 3EA0E7CE btnDoubleReceive.png
+P 88526D67 btnReceive.png
+P 06FDA4D1 btnRevive.png
+P C65595DC coin.png
+P 14DBC1A3 imgAdd.png
+P A576438E imgBg.png
+P 3B6E3169 imgMaxScore.png
+P DD04DDBC scoreNum.png
+P 6DFDF377 slogan_01.png
+P 31D83669 slogan_02.png
+P 10DBD16C slogan_03.png
+P 601E3E2F slogan_04.png
+P 3B6B302D slogan_05.png
+P B631DA76 slogan_06.png
+P BC437F74 slogan_07.png
+R CCA76349 画板 1.png
+D resources/shop
+R 6CB025CE 商城画板.jpg

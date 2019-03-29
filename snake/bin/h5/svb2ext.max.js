@@ -221,9 +221,12 @@ var Global=(function(){
 //class com.bdoggame.mananger.NetworkManager
 var NetworkManager=(function(){
 	function NetworkManager(){
-		this.BASE_URL_GAME="https://www.i66wan.com/game";
-		this.BASE_URL_WEB="https://www.i66wan.com";
+		//游戏服务器地址
+		this.BASE_URL_GAME="https://www.i66wan.com/xyxgame";
+		//外网Web地址
+		this.BASE_URL_WEB="https://www.i66wan.com/game";
 		this._audit=false;
+		//分享按钮
 		this._likeSwitch=false;
 		//猜你喜欢开关
 		this._defaultSwitch=false;
@@ -236,40 +239,87 @@ var NetworkManager=(function(){
 		//红包开关
 		this._againSwitch=false;
 		//再来一次开关
+		//复活开关
 		this._adIndex=0;
 		//默认广告index
 		//用户信息
 		//红包信息
 		this._unfetched=false;
 		//红包是否领取
+		this.mUserId=0;
+		//用户ID
 		this._battleId=0;
-		this.URL_REDBAG_INFO=this.BASE_URL_GAME+"/redbag/info";
-		this.URL_ADD_REDBAG=this.BASE_URL_GAME+"/redbag/receive";
-		this.URL_JUDGE_REDBAG=this.BASE_URL_GAME+"/redbag/judge";
-		this.URL_LOGIN=this.BASE_URL_WEB+"/game/login";
-		this.URL_MYCS_LOGIN=this.BASE_URL_GAME+"/mycsLogin";
-		this.URL_CONFIG=this.BASE_URL_GAME+"/config";
-		this.URL_REPORT=this.BASE_URL_GAME+"/report";
-		this.URL_SHAREID=this.BASE_URL_GAME+"/share/id";
-		this.URL_SHARELOGIN=this.BASE_URL_GAME+"/share/logined";
-		this.URL_VIDEO=this.BASE_URL_GAME+"/ad/click";
-		this.URL_VIDEO_CLOSE=this.BASE_URL_GAME+"/ad/close";
-		this.URL_REDIRECT=this.BASE_URL_GAME+"/redirect/click";
-		this.URL_REDIRECT_LOGIN=this.BASE_URL_GAME+"/redirect/logined";
-		this.URL_GAME_START=this.BASE_URL_GAME+"/start";
-		this.URL_GAME_END=this.BASE_URL_GAME+"/end";
+		this.URL_TCS_LOGIN=this.BASE_URL_WEB+"/login";
+		this.URL_LOGIN=this.BASE_URL_GAME+"/login";
+		this.URL_GAME_START=this.BASE_URL_WEB+"/start";
+		this.URL_GAME_END=this.BASE_URL_WEB+"/end";
+		this.URL_REDBAG_INFO=this.BASE_URL_WEB+"/redbag/info";
+		this.URL_ADD_REDBAG=this.BASE_URL_WEB+"/redbag/receive";
+		this.URL_JUDGE_REDBAG=this.BASE_URL_WEB+"/redbag/judge";
+		this.URL_CONFIG=this.BASE_URL_WEB+"/config";
+		this.URL_VIDEO_CLOSE=this.BASE_URL_WEB+"/ad/close";
+		this.URL_REPORT=this.BASE_URL_WEB+"/report";
+		this.URL_SHAREID=this.BASE_URL_WEB+"/share/id";
+		this.URL_SHARELOGIN=this.BASE_URL_WEB+"/share/logined";
+		this.URL_VIDEO=this.BASE_URL_WEB+"/ad/click";
+		this.URL_REDIRECT=this.BASE_URL_WEB+"/redirect/click";
+		this.URL_REDIRECT_LOGIN=this.BASE_URL_WEB+"/redirect/logined";
 	}
 
 	__class(NetworkManager,'com.bdoggame.mananger.NetworkManager');
 	var __proto=NetworkManager.prototype;
-	//对战id
+	/**
+	*@description:http请求协议
+	*@param url 链接地址
+	*@param response 响应
+	*@param process 过程
+	*/
 	__proto.httpUtil=function(url,response,error,process){
 		var xhr=new HttpRequest();
-		xhr.http.timeout=1000*4;
+		xhr.http.timeout=1000 *4;
 		xhr.once("complete",this,response);
 		xhr.once("error",this,error);
 		xhr.on("progress",this,process);
 		xhr.send(url,"","get","text");
+	}
+
+	/**
+	*@description 判断配置信息是否存在
+	*/
+	__proto.getConf=function(){
+		if(this.config){
+			return this.config;
+		}
+		console.log("Amumu failed getconfig");
+	}
+
+	/**
+	*@description 读取所有广告和跳转配置
+	*@param callback 回调函数
+	*/
+	__proto.getConfig=function(callback){
+		var url=this.URL_CONFIG+"?version="+WXSDK.VERSION+"&channelId="
+		+WXSDK.CHANNEL_ID+"&gameId="+WXSDK.GAME_ID;
+		console.log("Amumu getConfig url "+url);
+		this.httpUtil(url,function(data){
+			var res=new Object();
+			res=JSON.parse(data);
+			callback(res);
+			this.config=res.data;
+			this._audit=res.data.config.audit;
+			this._likeSwitch=res.data.config.switch.like;
+			this._againConfig=res.data.config.switch.again;
+			this._defaultSwitch=res.data.config.switch.default;
+			this._moreSwitch=res.data.config.switch.more;
+			this._redbagSwitch=res.data.config.switch.redbag;
+			this._reviveSwitch=res.data.config.switch.revive;
+			this._againSwitch=res.data.config.switch.again;
+			EventCenter.instance.event("CONFIG",res);
+			},function(err){
+			console.log("Amumu getConfig err "+err);
+			},function(process){
+			console.log("Amumu getConfig process "+process);
+		});
 	}
 
 	__proto.startGame=function(){
@@ -299,7 +349,7 @@ var NetworkManager=(function(){
 		+"&nickName="+myName+"&version="+WXSDK.VERSION+"&avator="+avatar;
 		var self=this;
 		url=encodeURI(url);
-		console.log("ricardo login "+url);
+		console.log("Amumu login "+url);
 		this.httpUtil(url,function(data){
 			var jsonObj=new Object();
 			jsonObj=JSON.parse(data);
@@ -307,15 +357,15 @@ var NetworkManager=(function(){
 			var nickName=encodeURIComponent(jsonObj.nickName);
 			this._userInfo=jsonObj;
 			com.bdoggame.mananger.NetworkManager.instance().redbagInfo(function(){});
-			console.log("ricardo loginWeb data "+data+" userId "+this.mUserId);
+			console.log("Amumu loginWeb data "+data+" userId "+this.mUserId);
 			WXSDK.onEnterQuery();
 			if(callback){
 				callback(jsonObj);
 			}
 			},function(err){
-			console.log("ricardo loginWeb err "+err);
+			console.log("Amumu loginWeb err "+err);
 			},function(process){
-			console.log("ricardo loginWeb process "+process);
+			console.log("Amumu loginWeb process "+process);
 		});
 	}
 
@@ -323,9 +373,9 @@ var NetworkManager=(function(){
 		if(this._userInfo && this._userInfo.userId){
 			var url=WXSDK.URL_REDBAG_INFO+"?userId="+this._userInfo.userId+"&version="
 			+WXSDK.VERSION+"&channelId="+WXSDK.CHANNEL_ID+"&gameId="+WXSDK.GAME_ID;
-			console.log("ricardo redbagInfo url "+url);
+			console.log("Amumu redbagInfo url "+url);
 			this.httpUtil(url,function(data){
-				console.log("ricardo redbaginfo "+data);
+				console.log("Amumu redbaginfo "+data);
 				this._unfetched=false;
 				var res=new Object();
 				res=JSON.parse(data);
@@ -335,18 +385,19 @@ var NetworkManager=(function(){
 		}
 	}
 
-	/*是否有红包
+	/*
+	*@desc 是否有红包
 	*@param callback
 	*/
 	__proto.judgeRedbag=function(callback){
 		if(this._userInfo && this._userInfo.userId){
 			var url=WXSDK.URL_JUDGE_REDBAG+"?userId="+this._userInfo.userId+"&version="
 			+WXSDK.VERSION+"&channelId="+WXSDK.CHANNEL_ID+"&gameId="+WXSDK.GAME_ID;
-			console.log("ricardo judgeRedbag url "+url);
+			console.log("Amumu judgeRedbag url "+url);
 			this.httpUtil(url,function(data){
 				var res=new Object();
 				res=JSON.parse(data);
-				console.log("ricardo redbagJudge "+data+" "+res.code);
+				console.log("Amumu redbagJudge "+data+" "+res.code);
 				if (res.ret==1){
 					this._unfetched=false;
 					callback(res);
@@ -359,9 +410,9 @@ var NetworkManager=(function(){
 		if(this._userInfo && this._userInfo.userId){
 			var url=this.URL_ADD_REDBAG+"?userId="+this._userInfo.userId+"&version="+WXSDK.VERSION
 			+"&channelId="+WXSDK.CHANNEL_ID+"&gameId="+WXSDK.GAME_ID;
-			console.log("ricardo addRedbag url "+url);
+			console.log("Amumu addRedbag url "+url);
 			this.httpUtil(url,function(data){
-				console.log("ricardo redbagAdd "+data);
+				console.log("Amumu redbagAdd "+data);
 				var res=new Object();
 				res=JSON.parse(data);
 				if(res.ret==1){
@@ -373,36 +424,10 @@ var NetworkManager=(function(){
 		}
 	}
 
-	__proto.getConfig=function(callback){
-		var url=this.URL_CONFIG+"?version="+WXSDK.VERSION+"&channelId="
-		+WXSDK.CHANNEL_ID+"&gameId="+WXSDK.GAME_ID;
-		console.log("ricardo getConfig url "+url);
-		this.httpUtil(url,function(data){
-			console.log("ricardo getConfig data "+data);
-			var res=new Object();
-			res=JSON.parse(data);
-			callback(res);
-			this.config=res.data;
-			this._audit=res.data.config.audit;
-			this._likeSwitch=res.data.config.switch.like;
-			this._againConfig=res.data.config.switch.again;
-			this._defaultSwitch=res.data.config.switch.default;
-			this._moreSwitch=res.data.config.switch.more;
-			this._redbagSwitch=res.data.config.switch.redbag;
-			this._reviveSwitch=res.data.config.switch.revive;
-			this._againSwitch=res.data.config.switch.again;
-			EventCenter.instance.event("CONFIG",res);
-			},function(err){
-			console.log("ricardo getConfig err "+err);
-			},function(process){
-			console.log("ricardo getConfig process "+process);
-		});
-	}
-
-	__proto.getConf=function(){
-		return this.config;
-	}
-
+	/**
+	*@description 上报
+	*@param event 事件
+	*/
 	__proto.report=function(event){
 		var userInfo=this._userInfo;
 		if(!userInfo || !userInfo.userId){
@@ -410,19 +435,22 @@ var NetworkManager=(function(){
 		};
 		var url=this.URL_REPORT+"?userId="+userInfo.userId+"&version="+WXSDK.VERSION+"&channelId="
 		+WXSDK.CHANNEL_ID+"&gameId="+WXSDK.GAME_ID+"&reportId="+event;
-		console.log("ricardo report url "+url);
+		console.log("Amumu report url "+url);
 		this.httpUtil(url,function(data){
-			console.log("ricardo report data "+data);
+			console.log("Amumu report data "+data);
 			var res=new Object();
 			res=JSON.parse(data);
 			},function(err){
-			console.log("ricardo report err "+err);
+			console.log("Amumu report err "+err);
 			},function(process){
-			console.log("ricardo report process "+process);
+			console.log("Amumu report process "+process);
 		});
 	}
 
-	//获得分享ID
+	/**
+	*@desc 获得分享ID
+	*@
+	*/
 	__proto.shareId=function(position,callback){
 		var userInfo=this._userInfo;
 		if(!userInfo || !userInfo.userId){
@@ -430,16 +458,16 @@ var NetworkManager=(function(){
 		};
 		var url=this.URL_SHAREID+"?userId="+userInfo.userId+"&version="+WXSDK.VERSION+"&channelId="
 		+WXSDK.CHANNEL_ID+"&gameId="+WXSDK.GAME_ID+"&position="+position;
-		console.log("ricardo shareId url "+url);
+		console.log("Amumu shareId url "+url);
 		this.httpUtil(url,function(data){
-			console.log("ricardo shareId data "+data);
+			console.log("Amumu shareId data "+data);
 			var res=new Object();
 			res=JSON.parse(data);
 			callback(res);
 			},function(err){
-			console.log("ricardo shareId err "+err);
+			console.log("Amumu shareId err "+err);
 			},function(process){
-			console.log("ricardo shareId process "+process);
+			console.log("Amumu shareId process "+process);
 		});
 	}
 
@@ -451,15 +479,15 @@ var NetworkManager=(function(){
 		};
 		var url=this.URL_SHARELOGIN+"?userId="+userInfo.userId+"&version="+WXSDK.VERSION+"&channelId="
 		+WXSDK.CHANNEL_ID+"&gameId="+WXSDK.GAME_ID+"&position="+position+"&id="+id;
-		console.log("ricardo shareLogin url "+url);
+		console.log("Amumu shareLogin url "+url);
 		this.httpUtil(url,function(data){
-			console.log("ricardo shareLogin data "+data);
+			console.log("Amumu shareLogin data "+data);
 			var res=new Object();
 			res=JSON.parse(data);
 			},function(err){
-			console.log("ricardo shareLogin err "+err);
+			console.log("Amumu shareLogin err "+err);
 			},function(process){
-			console.log("ricardo shareLogin process "+process);
+			console.log("Amumu shareLogin process "+process);
 		});
 	}
 
@@ -471,15 +499,15 @@ var NetworkManager=(function(){
 		};
 		var url=this.URL_VIDEO+"?userId="+userInfo.userId+"&version="+WXSDK.VERSION+"&channelId="
 		+WXSDK.CHANNEL_ID+"&gameId="+WXSDK.GAME_ID+"&adunit="+adunit+"&status="+status;
-		console.log("ricardo adClick url "+url);
+		console.log("Amumu adClick url "+url);
 		this.httpUtil(url,function(data){
-			console.log("ricardo adClick data "+data);
+			console.log("Amumu adClick data "+data);
 			var res=new Object();
 			res=JSON.parse(data);
 			},function(err){
-			console.log("ricardo adClick err "+err);
+			console.log("Amumu adClick err "+err);
 			},function(process){
-			console.log("ricardo adClick process "+process);
+			console.log("Amumu adClick process "+process);
 		});
 	}
 
@@ -491,15 +519,15 @@ var NetworkManager=(function(){
 		};
 		var url=this.URL_VIDEO_CLOSE+"?userId="+userInfo.userId+"&version="+WXSDK.VERSION+"&channelId="
 		+WXSDK.CHANNEL_ID+"&gameId="+WXSDK.GAME_ID+"&adunit="+adunit+"&finished="+finished+"&duration="+duration;
-		console.log("ricardo adClick url "+url);
+		console.log("Amumu adClick url "+url);
 		this.httpUtil(url,function(data){
-			console.log("ricardo adClick data "+data);
+			console.log("Amumu adClick data "+data);
 			var res=new Object();
 			res=JSON.parse(data);
 			},function(err){
-			console.log("ricardo adClick err "+err);
+			console.log("Amumu adClick err "+err);
 			},function(process){
-			console.log("ricardo adClick process "+process);
+			console.log("Amumu adClick process "+process);
 		});
 	}
 
@@ -511,15 +539,15 @@ var NetworkManager=(function(){
 		};
 		var url=this.URL_REDIRECT+"?userId="+userInfo.userId+"&version="+WXSDK.VERSION+"&channelId="
 		+WXSDK.CHANNEL_ID+"&gameId="+WXSDK.GAME_ID+"&targetAppId="+appId+"&position="+position;
-		console.log("ricardo redirectClick url "+url);
+		console.log("Amumu redirectClick url "+url);
 		this.httpUtil(url,function(data){
-			console.log("ricardo redirectClick data "+data);
+			console.log("Amumu redirectClick data "+data);
 			var res=new Object();
 			res=JSON.parse(data);
 			},function(err){
-			console.log("ricardo redirectClick err "+err);
+			console.log("Amumu redirectClick err "+err);
 			},function(process){
-			console.log("ricardo redirectClick process "+process);
+			console.log("Amumu redirectClick process "+process);
 		});
 	}
 
@@ -532,15 +560,15 @@ var NetworkManager=(function(){
 		var url=this.URL_REDIRECT_LOGIN+"?userId="+userInfo.userId+"&version="+WXSDK.VERSION+"&channelId="
 		+WXSDK.CHANNEL_ID+"&gameId="+WXSDK.GAME_ID+"&sourceGameId="+srcGameid+"&sourceUserId="+srcUserid
 		+"&sourceChannelId="+srcChannelId+"&sourceVersion="+srcVersion+"&sourceAppId="+srcAppid+"&sourcePosition="+srcPosition;
-		console.log("ricardo redirectLogin url "+url);
+		console.log("Amumu redirectLogin url "+url);
 		this.httpUtil(url,function(data){
-			console.log("ricardo redirectLogin data "+data);
+			console.log("Amumu redirectLogin data "+data);
 			var res=new Object();
 			res=JSON.parse(data);
 			},function(err){
-			console.log("ricardo redirectLogin err "+err);
+			console.log("Amumu redirectLogin err "+err);
 			},function(process){
-			console.log("ricardo redirectLogin process "+process);
+			console.log("Amumu redirectLogin process "+process);
 		});
 	}
 
@@ -577,7 +605,287 @@ var NetworkManager=(function(){
 		return NetworkManager._instance;
 	}
 
+	NetworkManager.reportLogin=function(openId,myName){
+		var url=this.URL_TCS_LOGIN+"?gameId="+/*no*/this.GameConfigs.GAME_ID+"&channelId="
+		+/*no*/this.GameConfigs.CHANNEL_ID+"&platType="+/*no*/this.GameConfigs.PLAT_TYPE+"&platId="+openId
+		+"&nickName="+myName+"&version="+/*no*/this.GameConfigs.VERSION;
+		url=encodeURI(url);
+		console.log("Amumu login "+url);
+		this.httpUtil(url,function(data){
+			var jsonObj=new Object();
+			jsonObj=JSON.parse(data);
+			this.mUserId=jsonObj.userId;
+			var nickName=encodeURIComponent(jsonObj.nickName);
+			var avator=encodeURIComponent(jsonObj.avator);
+			this.onLLWLogin(jsonObj.userId,nickName,avator);
+			console.log("Amumu login data "+data+" userId "+this.mUserId);
+			},function(err){
+			console.log("Amumu login err "+err);
+			},function(process){
+			console.log("Amumu login process "+process);
+		});
+	}
+
+	NetworkManager.reportStart=function(levelMode,level){
+		(level===void 0)&& (level=0);
+		if(this.mUserId <=0){
+			return;
+		};
+		var url=this.URL_GAME_START+"?gameId="+/*no*/this.GameConfigs.GAME_ID+"&channelId="
+		+/*no*/this.GameConfigs.CHANNEL_ID+"&version="+/*no*/this.GameConfigs.VERSION+"&userId="+this.mUserId+"&mode="+levelMode;
+		var self=this;
+		this.httpUtil(url,function(data){
+			console.log("Amumu start data "+data);
+			var jsonObj=new Object();
+			jsonObj=JSON.parse(data);
+			self.mBattleId=jsonObj.battleId;
+			},function(err){
+			console.log("Amumu start err "+err);
+			},function(process){
+			console.log("Amumu start process "+process);
+		});
+	}
+
+	NetworkManager.reportEnd=function(levelMode,level,winLose,score,duration,){
+		(levelMode===void 0)&& (levelMode=2);
+		(level===void 0)&& (level=0);
+		(winLose===void 0)&& (winLose=0);
+		(score===void 0)&& (score=0);
+		(duration===void 0)&& (duration=0);
+		if(this.mUserId <=0 || this.mBattleId==null){
+			return;
+		};
+		var url=this.URL_GAME_END+"?gameId="+/*no*/this.GameConfigs.GAME_ID+"&channelId="
+		+/*no*/this.GameConfigs.CHANNEL_ID+"&version="+/*no*/this.GameConfigs.VERSION+"&userId="+this.mUserId+"&battleId="
+		+this.mBattleId+"&mode="+levelMode+"&score="+score+"&duration="+duration;
+		this.httpUtil(url,function(data){
+			console.log("Amumu end data "+data);
+			},function(err){
+			console.log("Amumu end err "+err);
+			},function(process){
+			console.log("Amumu end process "+process);
+		});
+	}
+
+	NetworkManager.onLLWLogin=function(userId,userName,avator){
+		var url=this.URL_LOGIN+"?userId="+userId+"&userName="+userName+"&channelId="+/*no*/this.GameConfigs.CHANNEL_ID
+		+"&avator="+avator;
+		url=encodeURI(url);
+		console.log("Amumu llwloginurl "+url);
+		this.httpUtil(url,function(data){
+			console.log("Amumu onLLWLogin data "+data)
+			},function(err){
+			console.log("Amumu onLLWLogin err "+err);
+			},function(process){
+			console.log("Amumu onLLWLogin process "+process);
+		});
+	}
+
+	NetworkManager.RedirectClickGame=function(appId,pos){
+		var url=this.URL_REDIRECT+"?gameId="+/*no*/this.GameConfigs.GAME_ID+"&userId="+this.mUserId+"&channelId="+/*no*/this.GameConfigs.CHANNEL_ID
+		+"&version="+/*no*/this.GameConfigs.VERSION+"&targetAppId="+appId+"&position="+pos;
+		this.httpUtil(url,function(data){
+			console.log("Amumu redirect info succeed"+data);
+			},function(err){
+			console.log("Amumu redirect userinfo err"+err);
+			},function(process){
+			console.log("Amumu redirect userinfo process"+process);
+		});
+	}
+
+	NetworkManager.RedirectLoginedGame=function(sourceGameId,sourceUserId,sourceChannelId,sourceVersion,sourceAppId,sourcePosition){
+		var url=this.URL_REDIRECT_LOGIN+"?gameId="+/*no*/this.GameConfigs.GAME_ID+"&userId="+this.mUserId+"&channelId="
+		+/*no*/this.GameConfigs.CHANNEL_ID+"&version="+/*no*/this.GameConfigs.VERSION+"&sourceGameId="+sourceGameId+"&sourceUserId="
+		+sourceUserId+"&sourceChannelId="+sourceChannelId+"&sourceVersion="+sourceVersion+"&sourceAppId="+sourceAppId
+		+"&sourcePosition="+sourcePosition;
+		console.log("Amumu RedirectLoginedGame "+url);
+		this.httpUtil(url,function(data){
+			var res=new Object();
+			res=JSON.parse(data);
+			console.log("Amumu RedirectLoginedGame succeed"+data);
+			},function(err){
+			console.log("Amumu RedirectLoginedGame err"+err);
+			},function(process){
+			console.log("Amumu RedirectLoginedGame process"+process);
+		});
+	}
+
+	NetworkManager.reportAdClick=function(adUnit,status){
+		if(this.mUserId <=0){
+			return;
+		};
+		var url=this.URL_AD_CLICK+"?gameId="+/*no*/this.GameConfigs.GAME_ID+"&channelId="+/*no*/this.GameConfigs.CHANNEL_ID
+		+"&version="+/*no*/this.GameConfigs.VERSION+"&userId="+this.mUserId+"&adunit="+adUnit
+		+"&status="+status;
+		this.httpUtil(url,function(data){
+			console.log("Amumu reportAdClick data "+data);
+			},function(err){
+			console.log("Amumu reportAdClick err "+err);
+			},function(process){
+			console.log("Amumu reportAdClick process "+process);
+		});
+	}
+
+	NetworkManager.reportAdClose=function(adUnit,finished,duration){
+		if(this.mUserId <=0){
+			return;
+		};
+		var url=this.URL_AD_CLOSE+"?gameId="+/*no*/this.GameConfigs.GAME_ID+"&channelId="
+		+/*no*/this.GameConfigs.CHANNEL_ID+"&version="+/*no*/this.GameConfigs.VERSION+"&userId="+this.mUserId+"&adunit="+adUnit
+		+"&finished="+finished+"&duration="+duration;
+		this.httpUtil(url,function(data){
+			console.log("Amumu reportAdClose data "+data);
+			},function(err){
+			console.log("Amumu reportAdClose err "+err);
+			},function(process){
+			console.log("Amumu reportAdClose process "+process);
+		});
+	}
+
+	NetworkManager.getShareId=function(position,callback,errCallback){
+		if(this.mUserId <=0){
+			return;
+		};
+		var url=this.URL_SHARE_ID+"?gameId="+/*no*/this.GameConfigs.GAME_ID+"&channelId="
+		+/*no*/this.GameConfigs.CHANNEL_ID+"&version="+/*no*/this.GameConfigs.VERSION+"&userId="+this.mUserId+"&position="+position;
+		this.httpUtil(url,function(data){
+			var res=new Object();
+			res=JSON.parse(data);
+			callback(res);
+			console.log("Amumu getShareId data "+data);
+			},function(err){
+			console.log("Amumu getShareId err "+err);
+			errCallback();
+			},function(process){
+			console.log("Amumu getShareId process "+process);
+		});
+	}
+
+	NetworkManager.shareLogin=function(id,position){
+		if(this.mUserId <=0){
+			return;
+		};
+		var url=this.URL_SHARE_LOGIN+"?gameId="+/*no*/this.GameConfigs.GAME_ID+"&channelId="
+		+/*no*/this.GameConfigs.CHANNEL_ID+"&version="+/*no*/this.GameConfigs.VERSION+"&userId="+this.mUserId+"&id="+id+"&position="+position;
+		this.httpUtil(url,function(data){
+			console.log("Amumu shareLogin data "+data);
+			},function(err){
+			console.log("Amumu shareLogin err "+err);
+			},function(process){
+			console.log("Amumu shareLogin process "+process);
+		});
+	}
+
+	NetworkManager.addCoin=function(num,callback){
+		if(this.mUserId){
+			console.log("monlen userid "+this.mUserId);
+			var url=this.URL_ADD_TCS_COIN+"?userId="+this.mUserId+"&needAddCoin="
+			+num+"&channelId="+/*no*/this.GameConfigs.CHANNEL_ID;
+			this.httpUtil(url,function(data){
+				console.log("Amumu addCoin data "+data);
+				if (callback)callback();
+				},function(err){
+				console.log("Amumu addCoin err "+err);
+				},function(process){
+				console.log("Amumu addCoin process "+process);
+			});
+		}
+	}
+
+	NetworkManager.updateScore=function(score,callback){
+		if(this.mUserId){
+			var url=this.URL_UPDATE_SCORE+"?userId="+this.mUserId
+			+"&channelId="+/*no*/this.GameConfigs.CHANNEL_ID+"&score="+score;
+			this.httpUtil(url,function(data){
+				if (callback)callback();
+				console.log("Amumu updateScore "+data);
+				},function(err){
+				console.log("Amumu updateScore err "+err);
+				},function(process){
+				console.log("Amumu updateScore process "+process);
+			});
+		}
+	}
+
+	NetworkManager.worldRank=function(pageNum,callback){
+		if(this.mUserId){
+			var url=this.URL_WORLD_RANK+"?channelId="+/*no*/this.GameConfigs.CHANNEL_ID+"&pageNum="+pageNum;
+			this.httpUtil(url,function(data){
+				if (callback)callback();
+				console.log("Amumu worldRank "+data);
+				},function(err){
+				console.log("Amumu worldRank err "+err);
+				},function(process){
+				console.log("Amumu worldRank process "+process);
+			});
+		}
+	}
+
+	NetworkManager.skinInfo=function(callback){
+		if(this.mUserId){
+			var url=this.URL_SKIN_INFO+"?userId="+this.mUserId+"&channelId="+/*no*/this.GameConfigs.CHANNEL_ID;
+			this.httpUtil(url,function(data){
+				if (callback)callback();
+				console.log("Amumu skinInfo "+data);
+				},function(err){
+				console.log("Amumu skinInfo err "+err);
+				},function(process){
+				console.log("Amumu skinInfo process "+process);
+			});
+		}
+	}
+
+	NetworkManager.buySkinInfo=function(skinId,callback){
+		if(this.mUserId){
+			var url=this.URL_BUY_SKININFO+"?userId="+this.mUserId+"&channelId="+/*no*/this.GameConfigs.CHANNEL_ID
+			+"&skinId="+skinId;
+			this.httpUtil(url,function(data){
+				if (callback)callback();
+				console.log("Amumu buySkinInfo "+data);
+				},function(err){
+				console.log("Amumu buySkinInfo err "+err);
+				},function(process){
+				console.log("Amumu buySkinInfo process "+process);
+			});
+		}
+	}
+
+	NetworkManager.useSkin=function(skinId,callback){
+		if(this.mUserId){
+			var url=this.URL_USE_SKIN+"?userId="+this.mUserId+"&channelId="+/*no*/this.GameConfigs.CHANNEL_ID
+			+"&skinId="+skinId;
+			this.httpUtil(url,function(data){
+				if (callback)callback();
+				console.log("Amumu useSkin "+data);
+				},function(err){
+				console.log("Amumu useSkin err "+err);
+				},function(process){
+				console.log("Amumu useSkin process "+process);
+			});
+		}
+	}
+
 	NetworkManager._instance=null;
+	NetworkManager.POS_MORE="POS_MORE";
+	NetworkManager.POS_LIKE="POS_LIKE";
+	NetworkManager.POS_DEFAULT="POS_DEFAULT";
+	NetworkManager.POS_SKINSTORE_SHARE="POS_SKINSTORE_SHARE";
+	NetworkManager.POS_LEVELPASS_SHARE="LEVELPASS_SHARE";
+	NetworkManager.POS_LEVELPASS_PROTETC_SHARE="POS_LEVELPASS_PROTETC_SHARE";
+	NetworkManager.POS_PAUSEDIALOG_PROTETC_SHARE="POS_PAUSEDIALOG_PROTETC_SHARE";
+	NetworkManager.POS_HOMESHARE_SHARE="POS_HOMESHARE_SHARE";
+	NetworkManager.POS_HOMETWICECOIN_SHARE="POS_HOMETWICECOIN_SHARE";
+	NetworkManager.POS_HOMECOLLECTCOIN_SHARE="POS_HOMECOLLECTCOIN_SHARE";
+	NetworkManager.POS_GAMEVIEW_POWER_SHARE="POS_GAMEVIEW_POWER_SHARE";
+	NetworkManager.POS_REVIVE_SHARE="POS_REVIVE_SHARE";
+	NetworkManager.POS_CHANLENGE_SHARE="POS_CHANLENGE_SHARE";
+	NetworkManager.POS_GAMEVIEW_PROTECT_SHARE="POS_PROTECT_SHARE";
+	NetworkManager.POS_TRYAGAIN_SHARE="POS_TRYAGAIN_SHARE";
+	NetworkManager.POS_RANKDIALOG_SHARE="POS_RANKDIALOG_SHARE";
+	NetworkManager.POS_GIFT_SHARE="POS_GAMEOVER_GIFT_SHARE";
+	__static(NetworkManager,
+	['URL_ADD_TCS_COIN',function(){return this.URL_ADD_TCS_COIN=this.BASE_URL_GAME+"/addCoin";},'URL_UPDATE_SCORE',function(){return this.URL_UPDATE_SCORE=this.BASE_URL_GAME+"/updateScore";},'URL_WORLD_RANK',function(){return this.URL_WORLD_RANK=this.BASE_URL_GAME+"/worldRank";},'URL_SKIN_INFO',function(){return this.URL_SKIN_INFO=this.BASE_URL_GAME+"/skinInfo";},'URL_BUY_SKININFO',function(){return this.URL_BUY_SKININFO=this.BASE_URL_GAME+"/buySkinInfo";},'URL_USE_SKIN',function(){return this.URL_USE_SKIN=this.BASE_URL_GAME+"/useSkin";}
+	]);
 	return NetworkManager;
 })()
 
@@ -897,8 +1205,8 @@ var WXSDK=(function(){
 	WXSDK._userInfo=null;
 	WXSDK._redbagInfo=null;
 	WXSDK.GAME_ID=33008;
-	WXSDK.CHANNEL_ID="weixin.snake";
-	WXSDK.VERSION=100005;
+	WXSDK.CHANNEL_ID="weixin.tcstyt";
+	WXSDK.VERSION="100001";
 	WXSDK.PLAT_TYPE=1;
 	WXSDK._switch=false;
 	WXSDK._rewardedVideoAd1=null;
@@ -933,8 +1241,8 @@ var LayaUISample=(function(){
 var Main=(function(){
 	function Main(){
 		MiniAdpter.init();
-		console.log("this is svb2ext clone");
 		Laya.init(750,1334,WebGL);
+		console.log("Game Main");
 		Laya.stage.bgColor="#484B58";
 		Laya.stage.frameRate="fast";
 		if(Browser.onMobile)Laya.stage.screenMode="vertical";
@@ -973,6 +1281,11 @@ var Main=(function(){
 		,{url:"res/atlas/redbag.atlas",type:"atlas"}
 		,{url:"res/atlas/settle.atlas",type:"atlas"}
 		,{url:"res/atlas/navi.atlas",type:"atlas"}
+		,{url:"res/atlas/resources/game.atlas",type:"atlas"}
+		,{url:"res/atlas/resources/home.atlas",type:"atlas"}
+		,{url:"res/atlas/resources/material.atlas",type:"atlas"}
+		,{url:"res/atlas/resources/navi.atlas",type:"atlas"}
+		,{url:"res/atlas/resources/settle.atlas",type:"atlas"}
 		,{url:"CubeBoom.ani",type:"json"}
 		,{url:"BallBoom.ani",type:"json"}],Handler.create(this,this.onLoaded));
 	}
@@ -994,6 +1307,18 @@ var Main=(function(){
 		{url:"sound/add.wav",type:"sound"}
 		,{url:"sound/cubeboom.wav",type:"sound"}
 		,{url:"sound/cubehit.wav",type:"sound"}]);
+		var scoreNum=new Laya.BitmapFont();
+		scoreNum.loadFont("fonts/scoreNum.fnt",new Laya.Handler(this,function(){
+			Laya.Text.registerBitmapFont("scoreNum",scoreNum);
+		}));
+		var goldNum=new Laya.BitmapFont();
+		goldNum.loadFont("fonts/goldNum.fnt",new Laya.Handler(this,function(){
+			Laya.Text.registerBitmapFont("goldNum",goldNum);
+		}));
+		var maxScoreNum=new Laya.BitmapFont();
+		maxScoreNum.loadFont("fonts/maxScoreNum.fnt",new Laya.Handler(this,function(){
+			Laya.Text.registerBitmapFont("maxScoreNum",maxScoreNum);
+		}));
 		WXSDK.showBanner();
 	}
 
@@ -1596,7 +1921,7 @@ var BallUI=(function(_super){
 		this.createView(BallUI.uiView);
 	}
 
-	BallUI.uiView={"type":"LayaBody","props":{"width":20,"height":20},"child":[{"type":"Image","props":{"y":0,"x":0,"var":"img","skin":"game/Snake_Ball.png","anchorY":0.5,"anchorX":0.5}}]};
+	BallUI.uiView={"type":"LayaBody","props":{"width":20,"height":20},"child":[{"type":"Image","props":{"y":0,"x":0,"var":"img","skin":"resources/game/Snake_Ball.png","anchorY":0.5,"anchorX":0.5}}]};
 	return BallUI;
 })(LayaBody)
 
@@ -1616,7 +1941,7 @@ var BallItemUI=(function(_super){
 		this.createView(BallItemUI.uiView);
 	}
 
-	BallItemUI.uiView={"type":"LayaBody","props":{},"child":[{"type":"Image","props":{"y":0,"x":0,"var":"img","skin":"game/Snake_Ball.png","anchorY":0.5,"anchorX":0.5}},{"type":"Label","props":{"y":-47,"x":-3,"var":"labNum","text":"label","fontSize":35,"color":"#ffffff","anchorY":0.5,"anchorX":0.5}}]};
+	BallItemUI.uiView={"type":"LayaBody","props":{},"child":[{"type":"Image","props":{"y":0,"x":0,"var":"img","skin":"resources/game/Snake_Ball.png","anchorY":0.5,"anchorX":0.5}},{"type":"Label","props":{"y":-47,"x":-3,"var":"labNum","text":"label","fontSize":35,"color":"#ffffff","anchorY":0.5,"anchorX":0.5}}]};
 	return BallItemUI;
 })(LayaBody)
 
@@ -1635,7 +1960,7 @@ var BarUI=(function(_super){
 		this.createView(BarUI.uiView);
 	}
 
-	BarUI.uiView={"type":"LayaBody","props":{"width":8,"height":0},"child":[{"type":"Image","props":{"y":0,"x":0,"var":"img","skin":"game/Snake_Wall.png","anchorY":0.5,"anchorX":0.5,"sizeGrid":"8,3,12,2"}}]};
+	BarUI.uiView={"type":"LayaBody","props":{"width":8,"height":0},"child":[{"type":"Image","props":{"y":0,"x":0,"width":12,"var":"img","skin":"resources/game/Snake_Wall.png","sizeGrid":"7,3,8,5","height":31,"anchorY":0.5,"anchorX":0.5}}]};
 	return BarUI;
 })(LayaBody)
 
@@ -1655,7 +1980,7 @@ var BlockUI=(function(_super){
 		this.createView(BlockUI.uiView);
 	}
 
-	BlockUI.uiView={"type":"LayaBody","props":{"width":90,"height":90},"child":[{"type":"Image","props":{"y":0,"x":0,"var":"img","skin":"game/Snake_Cube_Spec.png","anchorY":0.5,"anchorX":0.5}},{"type":"Label","props":{"y":-2,"x":1,"var":"hpLabel","text":"label","fontSize":60,"font":"Arial","color":"#000000","bold":true,"anchorY":0.5,"anchorX":0.5}}]};
+	BlockUI.uiView={"type":"LayaBody","props":{"width":90,"height":90},"child":[{"type":"Image","props":{"y":0,"x":0,"var":"img","skin":"resources/game/Snake_Cube_Spec.png","anchorY":0.5,"anchorX":0.5}},{"type":"Label","props":{"y":-2,"x":1,"var":"hpLabel","text":"label","fontSize":60,"font":"Arial","color":"#000000","bold":true,"anchorY":0.5,"anchorX":0.5}}]};
 	return BlockUI;
 })(LayaBody)
 
@@ -1674,7 +1999,7 @@ var GameViewUI=(function(_super){
 		this.createView(GameViewUI.uiView);
 	}
 
-	GameViewUI.uiView={"type":"SceneView","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"top":0,"skin":"game/Snake_BG.png","right":0,"left":0,"bottom":0}},{"type":"Label","props":{"y":154,"x":732,"var":"labScore","text":"label","fontSize":60,"color":"#ffffff","bold":true,"anchorY":0.5,"anchorX":1}}]};
+	GameViewUI.uiView={"type":"SceneView","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"top":0,"skin":"resources/game/Snake_BG.png","right":0,"left":0,"bottom":0}},{"type":"Label","props":{"y":154,"x":732,"var":"labScore","text":"label","fontSize":60,"color":"#ffffff","bold":true,"anchorY":0.5,"anchorX":1}}]};
 	return GameViewUI;
 })(SceneView)
 
@@ -1684,11 +2009,14 @@ var HomeViewUI=(function(_super){
 	function HomeViewUI(){
 		this.btnWelfare=null;
 		this.btnStart=null;
+		this.btnDouble=null;
+		this.btnRegister=null;
 		this.btnRank=null;
+		this.btnShop=null;
+		this.btnShare=null;
 		this.labCoin=null;
 		this.btnMoney=null;
 		this.labTotal=null;
-		this.btnShare=null;
 		this.bgLike=null;
 		this.listLike=null;
 		this.btnMore=null;
@@ -1707,7 +2035,7 @@ var HomeViewUI=(function(_super){
 		this.createView(HomeViewUI.uiView);
 	}
 
-	HomeViewUI.uiView={"type":"SceneView","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":0,"x":0,"skin":"home/homebg.png"}},{"type":"Button","props":{"x":210,"visible":false,"var":"btnWelfare","skin":"home/btnwelfare.png","bottom":250}},{"type":"Button","props":{"y":716,"x":230,"var":"btnStart","stateNum":1,"skin":"home/btnstart.png","scaleY":0.5,"scaleX":0.5}},{"type":"Button","props":{"x":321,"visible":false,"var":"btnRank","skin":"home/imgrank.png","bottom":100}},{"type":"Image","props":{"x":49,"width":196,"visible":false,"top":100,"skin":"home/bgcoinnum.png","height":62},"child":[{"type":"Image","props":{"y":0,"x":11,"skin":"home/revivecoins.png","scaleY":0.6,"scaleX":0.6}},{"type":"Label","props":{"y":31,"x":147,"var":"labCoin","text":"0/5","fontSize":50,"font":"Arial","color":"#ffffff","anchorY":0.5,"anchorX":0.5,"align":"center"}}]},{"type":"Image","props":{"x":130,"top":203,"skin":"home/logo.png","scaleY":0.5,"scaleX":0.5}},{"type":"Button","props":{"y":771,"x":620,"visible":false,"var":"btnMoney","stateNum":1,"skin":"redbag/btnMoney.png"},"child":[{"type":"Label","props":{"y":125,"x":69,"var":"labTotal","text":"----礼券","fontSize":20,"color":"#ffffff","anchorY":0.5,"anchorX":0.5}}]},{"type":"Button","props":{"y":535,"x":652,"visible":false,"var":"btnShare","skin":"home/btnShare.png"}},{"type":"Image","props":{"y":918,"x":193,"visible":false,"var":"bgLike","skin":"navi/bgLike.png","scaleY":0.8,"scaleX":0.8},"child":[{"type":"List","props":{"y":22,"x":83,"var":"listLike","spaceX":25},"child":[{"type":"Button","props":{"y":0,"x":0,"width":100,"stateNum":1,"renderType":"render","height":100},"child":[{"type":"Image","props":{"y":-19,"x":81,"visible":false,"skin":"navi/unread.png","name":"imgUnread"}}]}]}]},{"type":"Button","props":{"y":538,"x":0,"visible":false,"var":"btnMore","skin":"navi/btnMore.png"},"child":[{"type":"Image","props":{"y":-9,"x":103,"skin":"navi/redspot.png"}}]},{"type":"Button","props":{"y":773,"x":0,"width":100,"visible":false,"var":"btnAd","left":0,"height":100},"child":[{"type":"Image","props":{"y":-21,"x":74,"skin":"navi/unread.png"}}]},{"type":"Panel","props":{"y":0,"x":-745,"width":750,"var":"panMore","mouseThrough":false,"mouseEnabled":true,"height":1400},"child":[{"type":"Image","props":{"y":0,"x":0,"width":750,"skin":"home/game_control_selected.png","sizeGrid":"0,0,0,0","height":1400}},{"type":"Image","props":{"y":471,"x":0,"var":"bgMore","skin":"navi/bgMore.png"},"child":[{"type":"List","props":{"y":13,"x":5,"var":"listMore","spaceY":25,"spaceX":25},"child":[{"type":"Button","props":{"y":0,"x":0,"width":100,"stateNum":1,"renderType":"render","height":100}}]},{"type":"Button","props":{"y":136,"x":370,"var":"btnClose","skin":"navi/btnClose.png"}}]}]}]};
+	HomeViewUI.uiView={"type":"SceneView","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":0,"x":0,"skin":"resources/home/Snake_Bg_750-1334.png"}},{"type":"Button","props":{"x":210,"visible":false,"var":"btnWelfare","skin":"home/btnwelfare.png","bottom":250}},{"type":"Button","props":{"y":560,"x":150,"var":"btnStart","stateNum":1,"skin":"resources/home/btnSingle.png","scaleY":1,"scaleX":1}},{"type":"Button","props":{"y":560,"x":411,"var":"btnDouble","stateNum":1,"skin":"resources/home/btnDouble.png","scaleY":1,"scaleX":1,"disabled":true}},{"type":"Button","props":{"visible":true,"var":"btnRegister","top":60,"stateNum":1,"skin":"resources/home/btnRegister.png","right":20,"disabled":true}},{"type":"Button","props":{"visible":true,"var":"btnRank","top":180,"stateNum":1,"skin":"resources/home/btnRank.png","right":20,"disabled":true}},{"type":"Button","props":{"visible":true,"var":"btnShop","top":300,"stateNum":1,"skin":"resources/home/btnShop.png","right":20,"disabled":true}},{"type":"Button","props":{"visible":true,"var":"btnShare","top":420,"stateNum":1,"skin":"resources/home/btnShare.png","right":20,"disabled":true}},{"type":"Image","props":{"x":49,"width":196,"visible":false,"top":100,"height":62},"child":[{"type":"Image","props":{"y":0,"x":11,"scaleY":0.6,"scaleX":0.6}},{"type":"Label","props":{"y":31,"x":147,"var":"labCoin","text":"0/5","fontSize":50,"font":"Arial","color":"#ffffff","anchorY":0.5,"anchorX":0.5,"align":"center"}}]},{"type":"Image","props":{"x":150,"visible":true,"top":131,"skin":"resources/home/imgTitle_01.png","scaleY":0.8,"scaleX":0.8}},{"type":"Button","props":{"y":771,"x":620,"visible":false,"var":"btnMoney","stateNum":1,"skin":"redbag/btnMoney.png"},"child":[{"type":"Label","props":{"y":125,"x":69,"var":"labTotal","text":"----礼券","fontSize":20,"color":"#ffffff","anchorY":0.5,"anchorX":0.5}}]},{"type":"Image","props":{"y":918,"x":193,"visible":false,"var":"bgLike","skin":"resources/navi/bgLike.png","scaleY":0.8,"scaleX":0.8},"child":[{"type":"List","props":{"y":22,"x":83,"var":"listLike","spaceX":25},"child":[{"type":"Button","props":{"y":0,"x":0,"width":100,"stateNum":1,"renderType":"render","height":100},"child":[{"type":"Image","props":{"y":-19,"x":81,"visible":false,"skin":"resources/navi/unread.png","name":"imgUnread"}}]}]}]},{"type":"Button","props":{"y":538,"x":0,"visible":false,"var":"btnMore","stateNum":1,"skin":"resources/home/btnMore.png"},"child":[{"type":"Image","props":{"y":-9,"x":103,"skin":"resources/navi/redspot.png"}}]},{"type":"Button","props":{"y":773,"x":0,"width":100,"visible":false,"var":"btnAd","left":0,"height":100},"child":[{"type":"Image","props":{"y":-21,"x":74,"skin":"resources/navi/unread.png"}}]},{"type":"Panel","props":{"y":0,"x":-745,"width":750,"var":"panMore","mouseThrough":false,"mouseEnabled":true,"height":1400},"child":[{"type":"Image","props":{"y":0,"x":0,"width":750,"skin":"resources/home/game_control_selected.png","sizeGrid":"0,0,0,0","height":1400}},{"type":"Image","props":{"y":459,"x":9,"width":430,"var":"bgMore","skin":"resources/home/imgGroup.png","height":382},"child":[{"type":"List","props":{"y":13,"x":5,"var":"listMore","spaceY":25,"spaceX":25},"child":[{"type":"Button","props":{"y":0,"x":0,"width":100,"stateNum":1,"renderType":"render","height":100}}]},{"type":"Button","props":{"y":136,"x":370,"width":61,"var":"btnClose","height":100}}]}]}]};
 	return HomeViewUI;
 })(SceneView)
 
@@ -1717,7 +2045,11 @@ var HomeDialogUI=(function(_super){
 	function HomeDialogUI(){
 		this.btnWelfare=null;
 		this.btnStart=null;
+		this.btnDouble=null;
+		this.btnRegister=null;
 		this.btnRank=null;
+		this.btnShop=null;
+		this.btnShare=null;
 		this.labCoin=null;
 		this.bgLike=null;
 		this.listLike=null;
@@ -1737,7 +2069,7 @@ var HomeDialogUI=(function(_super){
 		this.createView(HomeDialogUI.uiView);
 	}
 
-	HomeDialogUI.uiView={"type":"Dialog","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":0,"x":0,"skin":"home/homebg.png"}},{"type":"Button","props":{"x":200,"var":"btnWelfare","top":905,"skin":"home/btnwelfare.png"}},{"type":"Button","props":{"y":749,"x":200,"var":"btnStart","skin":"home/btnstart.png"}},{"type":"Button","props":{"y":1091,"x":311,"var":"btnRank","skin":"home/imgrank.png"}},{"type":"Image","props":{"x":39,"width":196,"top":140,"skin":"home/bgcoinnum.png","height":62},"child":[{"type":"Image","props":{"y":0,"x":11,"skin":"home/revivecoins.png","scaleY":0.6,"scaleX":0.6}},{"type":"Label","props":{"y":31,"x":147,"var":"labCoin","text":"0/5","fontSize":50,"font":"Arial","color":"#ffffff","anchorY":0.5,"anchorX":0.5,"align":"center"}}]},{"type":"Image","props":{"y":263,"x":100,"skin":"home/logo.png","scaleY":0.9,"scaleX":0.9}},{"type":"Image","props":{"y":918,"x":138,"visible":false,"var":"bgLike","skin":"navi/bgLike.png","scaleY":0.8,"scaleX":0.8},"child":[{"type":"List","props":{"y":22,"x":83,"var":"listLike","spaceX":25},"child":[{"type":"Button","props":{"y":0,"x":0,"width":100,"stateNum":1,"renderType":"render","height":100},"child":[{"type":"Image","props":{"y":-19,"x":81,"visible":false,"skin":"navi/unread.png","name":"imgUnread"}}]}]}]},{"type":"Button","props":{"y":603,"visible":false,"var":"btnMore","skin":"navi/btnMore.png"},"child":[{"type":"Image","props":{"y":-9,"x":103,"skin":"navi/redspot.png"}}]},{"type":"Button","props":{"y":773,"width":100,"visible":false,"var":"btnAd","left":0,"height":100},"child":[{"type":"Image","props":{"y":-21,"x":74,"skin":"navi/unread.png"}}]},{"type":"Panel","props":{"y":0,"x":-660,"width":640,"var":"panMore","mouseThrough":false,"mouseEnabled":true,"height":1400},"child":[{"type":"Image","props":{"y":0,"x":0,"width":640,"height":1400}},{"type":"Image","props":{"y":471,"x":0,"var":"bgMore","skin":"navi/bgMore.png"},"child":[{"type":"List","props":{"y":13,"x":5,"var":"listMore","spaceY":25,"spaceX":25},"child":[{"type":"Button","props":{"y":0,"x":0,"width":100,"stateNum":1,"renderType":"render","height":100}}]},{"type":"Button","props":{"y":136,"x":370,"var":"btnClose","skin":"navi/btnClose.png"}}]}]}]};
+	HomeDialogUI.uiView={"type":"Dialog","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":0,"x":0,"skin":"resources/home/Snake_Bg_750-1334.png","name":"imgBg"}},{"type":"Image","props":{"y":145,"x":138,"skin":"resources/home/imgTitle_01.png","scaleY":0.8,"scaleX":0.8,"name":"imgTitle"}},{"type":"Button","props":{"x":200,"width":0,"var":"btnWelfare","top":905,"height":0}},{"type":"Button","props":{"y":565,"x":154,"var":"btnStart","stateNum":1,"skin":"resources/home/btnSingle.png"}},{"type":"Button","props":{"y":575,"x":408,"var":"btnDouble","stateNum":1,"skin":"resources/home/btnDouble.png","disabled":true}},{"type":"Button","props":{"x":649,"var":"btnRegister","top":60,"stateNum":1,"skin":"resources/home/btnRegister.png","right":20,"disabled":true}},{"type":"Button","props":{"var":"btnRank","top":180,"stateNum":1,"skin":"resources/home/btnRank.png","right":20,"disabled":true}},{"type":"Button","props":{"x":649,"var":"btnShop","top":300,"stateNum":1,"skin":"resources/home/btnShop.png","right":20,"disabled":true}},{"type":"Button","props":{"x":649,"var":"btnShare","top":420,"stateNum":1,"skin":"resources/home/btnShare.png","right":20,"disabled":true}},{"type":"Image","props":{"x":39,"width":196,"top":140,"height":62},"child":[{"type":"Image","props":{"y":0,"x":11,"scaleY":0.6,"scaleX":0.6}},{"type":"Label","props":{"y":31,"x":147,"var":"labCoin","fontSize":50,"font":"Arial","color":"#ffffff","anchorY":0.5,"anchorX":0.5,"align":"center"}}]},{"type":"Image","props":{"y":918,"x":138,"visible":false,"var":"bgLike","skin":"resources/navi/bgLike.png","scaleY":0.8,"scaleX":0.8},"child":[{"type":"List","props":{"y":22,"x":83,"var":"listLike","spaceX":25},"child":[{"type":"Button","props":{"y":0,"x":0,"width":100,"stateNum":1,"renderType":"render","height":100},"child":[{"type":"Image","props":{"y":-19,"x":81,"visible":false,"skin":"resources/navi/unread.png","name":"imgUnread"}}]}]}]},{"type":"Button","props":{"y":603,"visible":false,"var":"btnMore","stateNum":1,"skin":"resources/home/btnMore.png"},"child":[{"type":"Image","props":{"y":-9,"x":103,"skin":"resources/navi/redspot.png"}}]},{"type":"Button","props":{"y":773,"width":100,"visible":false,"var":"btnAd","left":0,"height":100},"child":[{"type":"Image","props":{"y":-21,"x":74,"skin":"resources/navi/unread.png"}}]},{"type":"Panel","props":{"y":0,"x":-660,"width":640,"var":"panMore","mouseThrough":false,"mouseEnabled":true,"height":1400},"child":[{"type":"Image","props":{"y":0,"x":0,"width":640,"height":1400}},{"type":"Image","props":{"y":471,"x":0,"var":"bgMore","skin":"resources/home/imgGroup.png"},"child":[{"type":"List","props":{"y":13,"x":5,"var":"listMore","spaceY":25,"spaceX":25},"child":[{"type":"Button","props":{"y":0,"x":0,"width":100,"stateNum":1,"renderType":"render","height":100}}]},{"type":"Button","props":{"y":136,"x":370,"width":58,"var":"btnClose","height":100}}]}]}]};
 	return HomeDialogUI;
 })(Dialog)
 
@@ -1757,7 +2089,7 @@ var LoginInviteUI=(function(_super){
 		this.createView(LoginInviteUI.uiView);
 	}
 
-	LoginInviteUI.uiView={"type":"Dialog","props":{"width":640,"height":1136},"child":[{"type":"Image","props":{"y":301,"x":80,"width":800,"skin":"settle/bgInvite.png","scaleY":0.6,"scaleX":0.6,"height":600}},{"type":"Button","props":{"y":686,"x":209,"var":"btnShare","skin":"settle/btnInvite.png"}},{"type":"Button","props":{"y":286,"x":544,"var":"btnClose","stateNum":1,"skin":"settle/btnClose.png"}}]};
+	LoginInviteUI.uiView={"type":"Dialog","props":{"width":640,"height":1136},"child":[{"type":"Image","props":{"y":301,"x":80,"width":800,"scaleY":0.6,"scaleX":0.6,"height":600}},{"type":"Button","props":{"y":686,"x":209,"var":"btnShare"}},{"type":"Button","props":{"y":286,"x":544,"var":"btnClose","stateNum":1}}]};
 	return LoginInviteUI;
 })(Dialog)
 
@@ -1779,7 +2111,7 @@ var RedbagFetchUI=(function(_super){
 		this.createView(RedbagFetchUI.uiView);
 	}
 
-	RedbagFetchUI.uiView={"type":"Dialog","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":67,"x":75,"skin":"redbag/bgFetch.png","scaleY":0.8,"scaleX":0.8}},{"type":"Button","props":{"y":720,"x":219,"var":"btnFetch","skin":"redbag/btnFetch.png"}},{"type":"Button","props":{"y":218,"x":617,"var":"btnClose","skin":"redbag/btnClose.png","alpha":0.8}},{"type":"Label","props":{"y":831,"x":285,"visible":false,"var":"labShare","text":"分享到群领取","fontSize":30,"color":"#FFC96D"}},{"type":"Label","props":{"y":828,"x":285,"visible":false,"var":"labVideo","text":"观看视频领取","fontSize":30,"color":"#FFC96D"}},{"type":"Image","props":{"y":543,"x":270,"skin":"redbag/giftlogo.png"}},{"type":"Image","props":{"y":382,"x":253,"skin":"redbag/titlecong.png"}},{"type":"Label","props":{"y":666,"x":195,"text":"恭喜获得礼券大礼包","fontSize":40,"color":"#ffffff"}}]};
+	RedbagFetchUI.uiView={"type":"Dialog","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":67,"x":75,"skin":"redbag/bgFetch.png","scaleY":0.8,"scaleX":0.8}},{"type":"Button","props":{"y":720,"x":219,"var":"btnFetch"}},{"type":"Button","props":{"y":218,"x":617,"var":"btnClose","alpha":0.8}},{"type":"Label","props":{"y":831,"x":285,"visible":false,"var":"labShare","text":"分享到群领取","fontSize":30,"color":"#FFC96D"}},{"type":"Label","props":{"y":828,"x":285,"visible":false,"var":"labVideo","text":"观看视频领取","fontSize":30,"color":"#FFC96D"}},{"type":"Image","props":{"y":543,"x":270}},{"type":"Image","props":{"y":382,"x":253}},{"type":"Label","props":{"y":666,"x":195,"text":"恭喜获得礼券大礼包","fontSize":40,"color":"#ffffff"}}]};
 	return RedbagFetchUI;
 })(Dialog)
 
@@ -1801,7 +2133,7 @@ var RedbagGotUI=(function(_super){
 		this.createView(RedbagGotUI.uiView);
 	}
 
-	RedbagGotUI.uiView={"type":"Dialog","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":228,"x":75,"skin":"redbag/bgFetch.png","scaleY":0.8,"scaleX":0.8}},{"type":"Button","props":{"y":363,"x":603,"var":"btnClose","skin":"redbag/btnClose.png","alpha":0.5}},{"type":"Button","props":{"y":936,"x":302,"var":"btnWithdraw","skin":"redbag/btnWithdraw.png"}},{"type":"Label","props":{"y":873,"x":282,"text":"余额:","fontSize":50,"font":"Arial","color":"#ffffff","bold":true,"anchorY":0.5,"anchorX":0.5}},{"type":"Label","props":{"y":873,"x":464,"var":"labTotal","text":"----礼券","fontSize":50,"font":"Arial","color":"#ffffff","bold":true,"anchorY":0.5,"anchorX":0.5}},{"type":"Label","props":{"y":1007,"x":375,"text":"红包已转成礼券","fontSize":25,"font":"Arial","color":"#ffffff","anchorY":0.5,"anchorX":0.5}},{"type":"Label","props":{"y":724,"x":375,"var":"labCur","text":"----礼券","fontSize":60,"font":"Arial","color":"#ffffff","bold":true,"anchorY":0.5,"anchorX":0.5},"child":[{"type":"Label","props":{"y":90,"x":101,"text":"已存入余额","fontSize":30,"font":"Arial","color":"#ffffff","anchorY":0.5,"anchorX":0.5}}]}]};
+	RedbagGotUI.uiView={"type":"Dialog","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":228,"x":75,"scaleY":0.8,"scaleX":0.8}},{"type":"Button","props":{"y":363,"x":603,"var":"btnClose","alpha":0.5}},{"type":"Button","props":{"y":936,"x":302,"var":"btnWithdraw"}},{"type":"Label","props":{"y":873,"x":282,"text":"余额:","fontSize":50,"font":"Arial","color":"#ffffff","bold":true,"anchorY":0.5,"anchorX":0.5}},{"type":"Label","props":{"y":873,"x":464,"var":"labTotal","text":"----礼券","fontSize":50,"font":"Arial","color":"#ffffff","bold":true,"anchorY":0.5,"anchorX":0.5}},{"type":"Label","props":{"y":1007,"x":375,"text":"红包已转成礼券","fontSize":25,"font":"Arial","color":"#ffffff","anchorY":0.5,"anchorX":0.5}},{"type":"Label","props":{"y":724,"x":375,"var":"labCur","text":"----礼券","fontSize":60,"font":"Arial","color":"#ffffff","bold":true,"anchorY":0.5,"anchorX":0.5},"child":[{"type":"Label","props":{"y":90,"x":101,"text":"已存入余额","fontSize":30,"font":"Arial","color":"#ffffff","anchorY":0.5,"anchorX":0.5}}]}]};
 	return RedbagGotUI;
 })(Dialog)
 
@@ -1832,12 +2164,14 @@ var RedbagShopUI=(function(_super){
 //class ui.ReviveDialogUI extends laya.ui.Dialog
 var ReviveDialogUI=(function(_super){
 	function ReviveDialogUI(){
+		this.imgSlogan=null;
 		this.labCurScore=null;
 		this.labHighScore=null;
 		this.btnVideo=null;
-		this.btnCoin=null;
 		this.btnEnd=null;
 		this.labCoin=null;
+		this.btnReceive=null;
+		this.btnDoubleReceive=null;
 		ReviveDialogUI.__super.call(this);
 	}
 
@@ -1848,7 +2182,7 @@ var ReviveDialogUI=(function(_super){
 		this.createView(ReviveDialogUI.uiView);
 	}
 
-	ReviveDialogUI.uiView={"type":"Dialog","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":342,"x":59,"skin":"settle/bgSettle.png"}},{"type":"Label","props":{"y":495,"x":341,"var":"labCurScore","text":"60","fontSize":60,"color":"#ffffff"}},{"type":"Label","props":{"y":408,"x":315,"text":"分数","fontSize":60,"color":"#ffffff"}},{"type":"Label","props":{"y":599,"x":437,"var":"labHighScore","text":"60","fontSize":40,"color":"#7c7c7c"}},{"type":"Label","props":{"y":599,"x":224,"text":"最高分","fontSize":40,"color":"#7c7c7c"}},{"type":"Button","props":{"y":665,"x":230,"var":"btnVideo","stateNum":1,"skin":"home/videorevive.png","scaleY":0.5,"scaleX":0.5}},{"type":"Button","props":{"y":865,"x":377,"visible":false,"var":"btnCoin","skin":"home/coinrevive.png"}},{"type":"Button","props":{"y":891,"x":283,"var":"btnEnd","skin":"settle/btnEnd.png"}},{"type":"Image","props":{"y":708,"x":277,"width":196,"visible":false,"skin":"home/bgcoinnum.png","height":62},"child":[{"type":"Image","props":{"y":3,"x":12,"skin":"home/revivecoins.png","scaleY":0.6,"scaleX":0.6}},{"type":"Label","props":{"y":30,"x":148,"var":"labCoin","text":"0/5","fontSize":51,"font":"Arial","color":"#ffffff","anchorY":0.5,"anchorX":0.5,"align":"center"}}]}]};
+	ReviveDialogUI.uiView={"type":"Dialog","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"var":"imgSlogan","top":150,"skin":"resources/settle/slogan_01.png","centerX":0}},{"type":"Image","props":{"y":280,"x":0,"skin":"resources/settle/imgBg.png","name":"imgBg"}},{"type":"Label","props":{"y":424,"var":"labCurScore","text":"60","fontSize":60,"font":"scoreNum","color":"#ffffff","centerX":0,"bold":true}},{"type":"Image","props":{"y":522,"x":229,"skin":"resources/settle/imgMaxScore.png","name":"imgMaxScore"}},{"type":"Label","props":{"y":522,"x":392,"var":"labHighScore","text":"60","fontSize":30,"color":"#7c7c7c"}},{"type":"Button","props":{"y":600,"x":261,"var":"btnVideo","stateNum":3,"skin":"resources/settle/btnRevive.png","scaleY":1,"scaleX":1}},{"type":"Button","props":{"y":730,"x":295,"width":183,"var":"btnEnd","stateNum":1,"skin":"resources/home/game_control_selected.png","labelStrokeColor":"#ffffff","labelStroke":1,"labelSize":40,"label":"HOME","height":65}},{"type":"Image","props":{"y":784,"x":269,"visible":false,"skin":"resources/settle/coin.png","name":"imgCoin"}},{"type":"Image","props":{"y":801,"x":334,"visible":false,"skin":"resources/settle/imgAdd.png","name":"imgAdd"}},{"type":"Label","props":{"y":794,"x":351,"width":121,"var":"labCoin","text":"1000","height":44,"fontSize":40,"font":"Arial","color":"#ffffff","align":"center"}},{"type":"Button","props":{"y":875,"x":97,"var":"btnReceive","stateNum":3,"skin":"resources/settle/btnReceive.png","scaleY":1,"scaleX":1}},{"type":"Button","props":{"y":875,"x":421,"var":"btnDoubleReceive","stateNum":3,"skin":"resources/settle/btnDoubleReceive.png","scaleY":1,"scaleX":1}},{"type":"Image","props":{"y":-6,"x":758,"skin":"resources/settle/画板 1.png"}}]};
 	return ReviveDialogUI;
 })(Dialog)
 
@@ -1856,6 +2190,7 @@ var ReviveDialogUI=(function(_super){
 //class ui.SettleDialogUI extends laya.ui.Dialog
 var SettleDialogUI=(function(_super){
 	function SettleDialogUI(){
+		this.imgSlogan=null;
 		this.btnHome=null;
 		this.btnAgain=null;
 		this.labCurScore=null;
@@ -1874,7 +2209,7 @@ var SettleDialogUI=(function(_super){
 		this.createView(SettleDialogUI.uiView);
 	}
 
-	SettleDialogUI.uiView={"type":"Dialog","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":409,"x":59,"skin":"settle/bgSettle.png"}},{"type":"Button","props":{"y":927,"x":413,"var":"btnHome","skin":"settle/btnHome.png"}},{"type":"Button","props":{"y":927,"x":233,"var":"btnAgain","skin":"settle/btnAgain.png"}},{"type":"Label","props":{"y":571,"x":341,"var":"labCurScore","text":"50","fontSize":60,"color":"#ffffff"}},{"type":"Label","props":{"y":659,"x":448,"var":"labHighScore","text":"50","fontSize":40,"color":"#7c7c7c"}},{"type":"Label","props":{"y":477,"x":315,"text":"分数","fontSize":60,"color":"#ffffff"}},{"type":"Label","props":{"y":659,"x":240,"text":"最高分","fontSize":40,"color":"#7c7c7c"}},{"type":"Button","props":{"y":313,"x":627,"visible":false,"var":"btnMoney","stateNum":1,"skin":"redbag/btnMoney.png"},"child":[{"type":"Label","props":{"y":125,"x":70,"var":"labTotal","text":"----礼券","fontSize":20,"color":"#ffffff","anchorY":0.5,"anchorX":0.5}}]},{"type":"Button","props":{"y":313,"x":0,"width":100,"visible":false,"var":"btnAd","left":0,"height":100},"child":[{"type":"Image","props":{"y":-21,"x":74,"skin":"navi/unread.png"}}]},{"type":"Button","props":{"y":736,"x":220,"visible":false,"var":"btnChallenge","skin":"settle/btnChallenge.png"}}]};
+	SettleDialogUI.uiView={"type":"Dialog","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":162,"x":128,"var":"imgSlogan","skin":"resources/settle/slogan_01.png"}},{"type":"Image","props":{"y":280,"x":0,"skin":"resources/settle/imgBg.png"}},{"type":"Button","props":{"y":927,"x":413,"var":"btnHome"}},{"type":"Button","props":{"y":927,"x":233,"var":"btnAgain"}},{"type":"Label","props":{"y":454,"var":"labCurScore","text":"50","fontSize":60,"color":"#ffffff","centerX":0}},{"type":"Label","props":{"y":550,"x":400,"var":"labHighScore","text":"50","fontSize":40,"color":"#7c7c7c"}},{"type":"Label","props":{"y":550,"x":240,"text":"最高分","fontSize":40,"color":"#7c7c7c"}},{"type":"Button","props":{"y":313,"x":627,"visible":false,"var":"btnMoney","stateNum":1,"skin":"redbag/btnMoney.png"},"child":[{"type":"Label","props":{"y":125,"x":70,"var":"labTotal","text":"----礼券","fontSize":20,"color":"#ffffff","anchorY":0.5,"anchorX":0.5}}]},{"type":"Button","props":{"y":313,"x":0,"width":100,"visible":false,"var":"btnAd","left":0,"height":100},"child":[{"type":"Image","props":{"y":-21,"x":74,"skin":"navi/unread.png"}}]},{"type":"Button","props":{"y":736,"x":220,"visible":false,"var":"btnChallenge","skin":"settle/btnChallenge.png"}}]};
 	return SettleDialogUI;
 })(Dialog)
 
@@ -1893,7 +2228,7 @@ var tipsDialogUI=(function(_super){
 		this.createView(tipsDialogUI.uiView);
 	}
 
-	tipsDialogUI.uiView={"type":"Dialog","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":624,"x":75,"width":600,"skin":"redbag/itemrank.png"},"child":[{"type":"Label","props":{"y":81,"x":300,"var":"labTips","text":"您已分享过该群","fontSize":40,"color":"#ffffff","anchorY":0.5,"anchorX":0.5}}]}]};
+	tipsDialogUI.uiView={"type":"Dialog","props":{"width":750,"height":1334},"child":[{"type":"Image","props":{"y":624,"x":75,"width":600},"child":[{"type":"Label","props":{"y":81,"x":300,"var":"labTips","text":"您已分享过该群","fontSize":40,"color":"#ffffff","anchorY":0.5,"anchorX":0.5}}]}]};
 	return tipsDialogUI;
 })(Dialog)
 
@@ -1927,7 +2262,6 @@ var Ball=(function(_super){
 
 	__class(Ball,'com.bdoggame.Ball',_super);
 	var __proto=Ball.prototype;
-	//img.filters=[filter];
 	__proto.hit=function(block){
 		SoundManager.playSound("https://game.i66wan.com/h5resource/snakewx/resource100002/sound/cubehit.wav");
 		this.body.velocity[0]=0;
@@ -2164,7 +2498,7 @@ var GameView=(function(_super){
 		this.currentLine=0;
 		this.currentIntervalHeight=0;
 		this.BeforeNextBlockLine=NaN;
-		//长度剩余
+		//长度剩于
 		this.nextblockArea=NaN;
 		this.nextblockAreaLineCount=NaN;
 		this.secondPhase=false;
@@ -2201,7 +2535,6 @@ var GameView=(function(_super){
 		this.speedLine=5;
 		this.onPause=false;
 		this.debug=false;
-		//方块数字区间数组
 		this.valueArea1=[[1,5],[6,15],[16,30]];
 		this.valueArea2=[[10,20],[21,30],[31,50]];
 		this.valueArea3=[[1,10],[11,25],[26,50]];
@@ -2300,7 +2633,6 @@ var GameView=(function(_super){
 
 	__class(GameView,'com.bdoggame.GameView',_super);
 	var __proto=GameView.prototype;
-	//
 	__proto.onAdd=function(){
 		this.on("mousedown",this,this.onDown);
 		if (!this.debug){
@@ -2310,7 +2642,6 @@ var GameView=(function(_super){
 		GameSDK.start();
 	}
 
-	//向下
 	__proto.onDown=function(){
 		this.currentVerticalSmoothVelocity=0;
 		this.currentX=this.mouseX;
@@ -2320,14 +2651,12 @@ var GameView=(function(_super){
 		this.stage.on("mouseup",this ,this.onUp);
 	}
 
-	//向上
 	__proto.onUp=function(){
 		this.stage.off("mouseup",this ,this.onUp);
 		this.isDown=false;
 		this.p2.vec2.set(this.ballsnake.mainBall.body.velocity,0,this.getVerticalSpeed());
 	}
 
-	//移动
 	__proto.onMove=function(){
 		var vec2=this.ballsnake.mainBall.body.velocity;
 		if (vec2[1] > 0)vec2[1]=0;
@@ -2367,9 +2696,6 @@ var GameView=(function(_super){
 		this.ballsnake.xSpeed=vec2[0];
 	}
 
-	/*
-	*游戏开始入口
-	**/
 	__proto.gamestart=function(){
 		this.score=0;
 		this.container.y=0;
@@ -2413,7 +2739,6 @@ var GameView=(function(_super){
 		this.mReviveShowed=false;
 	}
 
-	//游戏结束函数
 	__proto.gameOver=function(){
 		Laya.timer.clear(this,this.onFrame);
 		EventCenter.instance.on("revive",this,this.revive);
@@ -2438,7 +2763,6 @@ var GameView=(function(_super){
 		}
 	}
 
-	//复活
 	__proto.revive=function(){
 		this.ballsnake.createBalls(5);
 		this.ballsnake.mainBall.pos(this.overPos.x,this.overPos.y);
@@ -2446,7 +2770,7 @@ var GameView=(function(_super){
 		Laya.timer.frameLoop(1,this,this.onFrame);
 	}
 
-	//每帧刷新
+	//gamestart();
 	__proto.onFrame=function(){
 		if (this.onPause)return;
 		if (this.superStartTime > 0){
@@ -2488,7 +2812,6 @@ var GameView=(function(_super){
 		}
 	}
 
-	//更新
 	__proto.update=function(){
 		var num=-this.container.y-this.height;
 		var num2=(this.column-1)*150;
@@ -2688,7 +3011,6 @@ var GameView=(function(_super){
 		}
 	}
 
-	//检查坐标
 	__proto.checkCoordinates=function(tx,ty){
 		var c;
 		for(var $each_c in this.startingPhaseBallCoordinates){
@@ -2698,7 +3020,6 @@ var GameView=(function(_super){
 		return false
 	}
 
-	//获取水平速度
 	__proto.getVerticalSpeed=function(){
 		if (this.ballsnake.isSuperSnake)return-this.verticalSpeedMax;
 		var b=Math.min(Math.floor(this.currentBlockLine / this.speedLine)/ 8 *this.verticalSpeedMax+this.verticalSpeed,this.verticalSpeedMax);
@@ -2711,7 +3032,6 @@ var GameView=(function(_super){
 		this.superStartTime=10000;
 	}
 
-	//球体集中方块
 	__proto.ballHitBlock=function(block){
 		this.isHitting=true;
 		if (this.currentHitBlock !=block){
@@ -2729,13 +3049,10 @@ var GameView=(function(_super){
 		this.remainingTimeBeforeCanHitAgain=(1.1-this.currentDelayBetweenHits)*0.1;
 	}
 
-	//
 	__proto.onBlockUnDisplay=function(){
 		this.currentHitBlock=null;
 	}
 
-	//设置分数
-	//获取分数
 	__getset(0,__proto,'score',function(){
 		return this._score;
 		},function(value){
@@ -2854,10 +3171,7 @@ var HomeView=(function(_super){
 		this.btnMore.on("click",this,this.onMoreClick);
 		this.btnClose.on("click",this,this.onCloseClick);
 		this.btnAd.on("click",this,this.onAdClick);
-		Laya.timer.once(1000,this,function(){
-			this.showRedbag();
-		});
-		this.btnMoney.visible=NetworkManager.instance()._redbagSwitch;
+		this.btnMoney.visible=false;
 		this.initConf();
 	}
 
@@ -2958,7 +3272,6 @@ var HomeView=(function(_super){
 	}
 
 	__proto.setMoney=function(){
-		this.btnMoney.visible=NetworkManager.instance()._redbagSwitch;
 		if (NetworkManager.instance()._redbagInfo >=0){
 			if (NetworkManager.instance()._unfetched){
 				this.labTotal.text="未领取";
@@ -3380,7 +3693,7 @@ var RedbagShop=(function(_super){
 
 
 /**
-*...
+*@desc ReviveDialog 复活界面
 *@author ...
 */
 //class com.bdoggame.ReviveDialog extends ui.ReviveDialogUI
@@ -3390,7 +3703,6 @@ var ReviveDialog=(function(_super){
 		this._highScore=0;
 		this._reviveRd=-1;
 		ReviveDialog.__super.call(this);
-		this.btnCoin.on("click",this,this.onCoinClick);
 		this.btnEnd.on("click",this,this.onEndClick);
 		this.btnVideo.on("click",this,this.onVideoClick);
 		this.btnEnd.visible=false;
@@ -3459,9 +3771,8 @@ var ReviveDialog=(function(_super){
 
 	__proto.onEndClick=function(){
 		this.close();
-		var settleDialog=SettleDialog.instance();
-		settleDialog.popup();
-		settleDialog.updateScore(this._curScore,this._highScore);
+		var gameView=GameView.instance();
+		SceneManager.instance.replaceScene(gameView);
 	}
 
 	//GameSDK.onHideBanner();
@@ -3476,9 +3787,7 @@ var ReviveDialog=(function(_super){
 
 	__proto.setCoinNum=function(){
 		var coin=LocalStorage.getItem("COIN_NUM",0)==null? 0:LocalStorage.getItem("COIN_NUM",0);
-		this.labCoin.text=coin+"/5";
 		console.log("ricardo set coinnum "+coin);
-		this.btnCoin.disabled=coin <=0;
 	}
 
 	ReviveDialog.instance=function(){

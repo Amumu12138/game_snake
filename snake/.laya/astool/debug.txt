@@ -1,98 +1,94 @@
-1,0.00,,0,Project command:e:\Game\snake/.actionScriptProperties;iflash=false;windowshow=false;chromerun=false;quickcompile=true
-Project configuration:e:\Game\snake/.actionScriptProperties.
-1,0.00,,0,output path:e:/Game/snake/bin/h5/
-1,0.00,,0,Main Class:e:/Game/snake/src/LayaUISample.as
+1,0.00,,0,Project command:e:\OldGame\snake/.actionScriptProperties;iflash=false;windowshow=false;chromerun=false;quickcompile=true
+Project configuration:e:\OldGame\snake/.actionScriptProperties.
+1,0.00,,0,output path:e:/OldGame/snake/bin/h5/
+1,0.00,,0,Main Class:e:/OldGame/snake/src/LayaUISample.as
 1,0.00,,0,output file:LayaUISample
-1,0.00,,0,compilerSourcePath e:/Game/snake/libs/laya/src/
+1,0.00,,0,compilerSourcePath e:/OldGame/snake/libs/laya/src/
 
-1,0.00,,0,Compile Path:e:/Game/snake/src/
+1,0.00,,0,Compile Path:e:/OldGame/snake/src/
 
-1,0.00,,0,Compile Path:e:/Game/snake/libs/laya/src/
+1,0.00,,0,Compile Path:e:/OldGame/snake/libs/laya/src/
 
-1,0.00,e:/Game/snake/src,0,Collect
-1,0.00,e:/Game/snake/libs/laya/src,0,Collect
+1,0.00,e:/OldGame/snake/src,0,Collect
+1,0.00,e:/OldGame/snake/libs/laya/src,0,Collect
 1,2.00,,0,read class message
-7,50.79,e:/Game/snake/src/com/bdoggame/EventConfig.as,14,USERINFO This variable is not defined.
-7,50.79,e:/Game/snake/src/com/bdoggame/EventConfig.as,15,CONFIG This variable is not defined.
-7,50.79,e:/Game/snake/src/com/bdoggame/EventConfig.as,18,BTN_SHARE This variable is not defined.
-7,50.79,e:/Game/snake/src/com/bdoggame/EventConfig.as,19,BTN_RANK This variable is not defined.
-7,50.79,e:/Game/snake/src/com/bdoggame/EventConfig.as,20,BTN_CHALLENGE This variable is not defined.
-7,50.79,e:/Game/snake/src/com/bdoggame/EventConfig.as,21,BTN_AGAIN This variable is not defined.
-7,50.79,e:/Game/snake/src/com/bdoggame/EventConfig.as,22,BTN_REDBAG This variable is not defined.
-7,50.79,e:/Game/snake/src/com/bdoggame/EventConfig.as,23,BTN_REVIVE This variable is not defined.
-7,50.79,e:/Game/snake/src/com/bdoggame/EventConfig.as,24,BTN_SHARE_DAILY This variable is not defined.
-7,50.79,e:/Game/snake/src/com/bdoggame/EventConfig.as,26,POS_MORE This variable is not defined.
-7,50.79,e:/Game/snake/src/com/bdoggame/EventConfig.as,27,POS_LIKE This variable is not defined.
-7,50.79,e:/Game/snake/src/com/bdoggame/EventConfig.as,28,POS_DEF_HOME This variable is not defined.
-7,50.79,e:/Game/snake/src/com/bdoggame/EventConfig.as,29,POS_DEF_SETTLE This variable is not defined.
-7,51.19,e:/Game/snake/src/com/bdoggame/HomeView.as,115,any This variable is not defined.
-7,51.19,e:/Game/snake/src/com/bdoggame/HomeView.as,116,any This variable is not defined.
-7,51.19,e:/Game/snake/src/com/bdoggame/HomeView.as,116,any This variable is not defined.
-7,51.19,e:/Game/snake/src/com/bdoggame/HomeView.as,210,any This variable is not defined.
-7,51.19,e:/Game/snake/src/com/bdoggame/HomeView.as,211,any This variable is not defined.
-7,51.19,e:/Game/snake/src/com/bdoggame/HomeView.as,247,any This variable is not defined.
-7,51.19,e:/Game/snake/src/com/bdoggame/HomeView.as,248,any This variable is not defined.
-7,51.19,e:/Game/snake/src/com/bdoggame/HomeView.as,264,any This variable is not defined.
-7,51.19,e:/Game/snake/src/com/bdoggame/HomeView.as,266,any This variable is not defined.
-7,51.19,e:/Game/snake/src/com/bdoggame/HomeView.as,289,any This variable is not defined.
-7,51.19,e:/Game/snake/src/com/bdoggame/HomeView.as,291,any This variable is not defined.
-7,51.58,e:/Game/snake/src/com/bdoggame/RedbagFetch.as,37,any This variable is not defined.
-7,51.58,e:/Game/snake/src/com/bdoggame/RedbagFetch.as,38,any This variable is not defined.
-7,51.58,e:/Game/snake/src/com/bdoggame/RedbagFetch.as,38,any This variable is not defined.
-7,51.98,e:/Game/snake/src/com/bdoggame/SettleDialog.as,50,any This variable is not defined.
-7,51.98,e:/Game/snake/src/com/bdoggame/SettleDialog.as,51,any This variable is not defined.
-7,51.98,e:/Game/snake/src/com/bdoggame/SettleDialog.as,63,any This variable is not defined.
-7,51.98,e:/Game/snake/src/com/bdoggame/SettleDialog.as,64,any This variable is not defined.
-7,51.98,e:/Game/snake/src/com/bdoggame/SettleDialog.as,112,any This variable is not defined.
-7,51.98,e:/Game/snake/src/com/bdoggame/SettleDialog.as,113,any This variable is not defined.
-7,51.98,e:/Game/snake/src/com/bdoggame/SettleDialog.as,113,any This variable is not defined.
-7,51.98,e:/Game/snake/src/com/bdoggame/SettleDialog.as,180,any This variable is not defined.
-7,51.98,e:/Game/snake/src/com/bdoggame/SettleDialog.as,181,any This variable is not defined.
-7,51.98,e:/Game/snake/src/com/bdoggame/SettleDialog.as,181,any This variable is not defined.
-7,66.59,e:/Game/snake/libs/laya/src/laya/d3/shader/ShaderDefines3D.as,92,_reg This variable is not defined.
-7,66.59,e:/Game/snake/libs/laya/src/laya/d3/shader/ShaderDefines3D.as,96,_toText This variable is not defined.
-7,66.59,e:/Game/snake/libs/laya/src/laya/d3/shader/ShaderDefines3D.as,100,_toInt This variable is not defined.
-1,89.90,,0,Disable Flash3D e:/Game/snake/src/LayaUISample.as
-12,89.90,e:/Game/snake/bin/h5/LayaUISample.max.js,1344787,
-11,89.90,e:/Game/snake/bin/h5/LayaUISample.max.html,894,
-******************************************************************************
-Error or warning message:LayaUISample.max.js
-1 file:///e:/Game/snake/src/com/bdoggame/EventConfig.as (15):warning:USERINFO This variable is not defined.
-2 file:///e:/Game/snake/src/com/bdoggame/EventConfig.as (16):warning:CONFIG This variable is not defined.
-3 file:///e:/Game/snake/src/com/bdoggame/EventConfig.as (19):warning:BTN_SHARE This variable is not defined.
-4 file:///e:/Game/snake/src/com/bdoggame/EventConfig.as (20):warning:BTN_RANK This variable is not defined.
-5 file:///e:/Game/snake/src/com/bdoggame/EventConfig.as (21):warning:BTN_CHALLENGE This variable is not defined.
-6 file:///e:/Game/snake/src/com/bdoggame/EventConfig.as (22):warning:BTN_AGAIN This variable is not defined.
-7 file:///e:/Game/snake/src/com/bdoggame/EventConfig.as (23):warning:BTN_REDBAG This variable is not defined.
-8 file:///e:/Game/snake/src/com/bdoggame/EventConfig.as (24):warning:BTN_REVIVE This variable is not defined.
-9 file:///e:/Game/snake/src/com/bdoggame/EventConfig.as (25):warning:BTN_SHARE_DAILY This variable is not defined.
-10 file:///e:/Game/snake/src/com/bdoggame/EventConfig.as (27):warning:POS_MORE This variable is not defined.
-11 file:///e:/Game/snake/src/com/bdoggame/EventConfig.as (28):warning:POS_LIKE This variable is not defined.
-12 file:///e:/Game/snake/src/com/bdoggame/EventConfig.as (29):warning:POS_DEF_HOME This variable is not defined.
-13 file:///e:/Game/snake/src/com/bdoggame/EventConfig.as (30):warning:POS_DEF_SETTLE This variable is not defined.
-14 file:///e:/Game/snake/src/com/bdoggame/HomeView.as (116):warning:any This variable is not defined.
-15 file:///e:/Game/snake/src/com/bdoggame/HomeView.as (117):warning:any This variable is not defined.
-16 file:///e:/Game/snake/src/com/bdoggame/HomeView.as (117):warning:any This variable is not defined.
-17 file:///e:/Game/snake/src/com/bdoggame/HomeView.as (211):warning:any This variable is not defined.
-18 file:///e:/Game/snake/src/com/bdoggame/HomeView.as (212):warning:any This variable is not defined.
-19 file:///e:/Game/snake/src/com/bdoggame/HomeView.as (248):warning:any This variable is not defined.
-20 file:///e:/Game/snake/src/com/bdoggame/HomeView.as (249):warning:any This variable is not defined.
-21 file:///e:/Game/snake/src/com/bdoggame/HomeView.as (265):warning:any This variable is not defined.
-22 file:///e:/Game/snake/src/com/bdoggame/HomeView.as (267):warning:any This variable is not defined.
-23 file:///e:/Game/snake/src/com/bdoggame/HomeView.as (290):warning:any This variable is not defined.
-24 file:///e:/Game/snake/src/com/bdoggame/HomeView.as (292):warning:any This variable is not defined.
-25 file:///e:/Game/snake/src/com/bdoggame/RedbagFetch.as (38):warning:any This variable is not defined.
-26 file:///e:/Game/snake/src/com/bdoggame/RedbagFetch.as (39):warning:any This variable is not defined.
-27 file:///e:/Game/snake/src/com/bdoggame/RedbagFetch.as (39):warning:any This variable is not defined.
-28 file:///e:/Game/snake/src/com/bdoggame/SettleDialog.as (51):warning:any This variable is not defined.
-29 file:///e:/Game/snake/src/com/bdoggame/SettleDialog.as (52):warning:any This variable is not defined.
-30 file:///e:/Game/snake/src/com/bdoggame/SettleDialog.as (64):warning:any This variable is not defined.
-31 file:///e:/Game/snake/src/com/bdoggame/SettleDialog.as (65):warning:any This variable is not defined.
-32 file:///e:/Game/snake/src/com/bdoggame/SettleDialog.as (113):warning:any This variable is not defined.
-33 file:///e:/Game/snake/src/com/bdoggame/SettleDialog.as (114):warning:any This variable is not defined.
-34 file:///e:/Game/snake/src/com/bdoggame/SettleDialog.as (114):warning:any This variable is not defined.
-35 file:///e:/Game/snake/src/com/bdoggame/SettleDialog.as (181):warning:any This variable is not defined.
-36 file:///e:/Game/snake/src/com/bdoggame/SettleDialog.as (182):warning:any This variable is not defined.
-37 file:///e:/Game/snake/src/com/bdoggame/SettleDialog.as (182):warning:any This variable is not defined.
+7,50.79,e:/OldGame/snake/src/com/bdoggame/EventConfig.as,14,USERINFO This variable is not defined.
+7,50.79,e:/OldGame/snake/src/com/bdoggame/EventConfig.as,15,CONFIG This variable is not defined.
+7,50.79,e:/OldGame/snake/src/com/bdoggame/EventConfig.as,18,BTN_SHARE This variable is not defined.
+7,50.79,e:/OldGame/snake/src/com/bdoggame/EventConfig.as,19,BTN_RANK This variable is not defined.
+7,50.79,e:/OldGame/snake/src/com/bdoggame/EventConfig.as,20,BTN_CHALLENGE This variable is not defined.
+7,50.79,e:/OldGame/snake/src/com/bdoggame/EventConfig.as,21,BTN_AGAIN This variable is not defined.
+7,50.79,e:/OldGame/snake/src/com/bdoggame/EventConfig.as,22,BTN_REDBAG This variable is not defined.
+7,50.79,e:/OldGame/snake/src/com/bdoggame/EventConfig.as,23,BTN_REVIVE This variable is not defined.
+7,50.79,e:/OldGame/snake/src/com/bdoggame/EventConfig.as,24,BTN_SHARE_DAILY This variable is not defined.
+7,50.79,e:/OldGame/snake/src/com/bdoggame/EventConfig.as,26,POS_MORE This variable is not defined.
+7,50.79,e:/OldGame/snake/src/com/bdoggame/EventConfig.as,27,POS_LIKE This variable is not defined.
+7,50.79,e:/OldGame/snake/src/com/bdoggame/EventConfig.as,28,POS_DEF_HOME This variable is not defined.
+7,50.79,e:/OldGame/snake/src/com/bdoggame/EventConfig.as,29,POS_DEF_SETTLE This variable is not defined.
+7,51.19,e:/OldGame/snake/src/com/bdoggame/HomeView.as,117,any This variable is not defined.
+7,51.19,e:/OldGame/snake/src/com/bdoggame/HomeView.as,118,any This variable is not defined.
+7,51.19,e:/OldGame/snake/src/com/bdoggame/HomeView.as,118,any This variable is not defined.
+7,51.19,e:/OldGame/snake/src/com/bdoggame/HomeView.as,212,any This variable is not defined.
+7,51.19,e:/OldGame/snake/src/com/bdoggame/HomeView.as,213,any This variable is not defined.
+7,51.19,e:/OldGame/snake/src/com/bdoggame/HomeView.as,249,any This variable is not defined.
+7,51.19,e:/OldGame/snake/src/com/bdoggame/HomeView.as,250,any This variable is not defined.
+7,51.19,e:/OldGame/snake/src/com/bdoggame/HomeView.as,266,any This variable is not defined.
+7,51.19,e:/OldGame/snake/src/com/bdoggame/HomeView.as,268,any This variable is not defined.
+7,51.19,e:/OldGame/snake/src/com/bdoggame/HomeView.as,291,any This variable is not defined.
+7,51.19,e:/OldGame/snake/src/com/bdoggame/HomeView.as,293,any This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,193,GameConfigs.GAME_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,194,GameConfigs.CHANNEL_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,194,GameConfigs.PLAT_TYPE This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,195,GameConfigs.VERSION This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,229,GameConfigs.GAME_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,230,GameConfigs.CHANNEL_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,230,GameConfigs.VERSION This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,259,GameConfigs.GAME_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,260,GameConfigs.CHANNEL_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,260,GameConfigs.VERSION This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,280,GameConfigs.CHANNEL_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,313,GameConfigs.GAME_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,313,GameConfigs.CHANNEL_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,314,GameConfigs.VERSION This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,336,GameConfigs.GAME_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,337,GameConfigs.CHANNEL_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,337,GameConfigs.VERSION This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,365,GameConfigs.GAME_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,365,GameConfigs.CHANNEL_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,366,GameConfigs.VERSION This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,395,GameConfigs.GAME_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,396,GameConfigs.CHANNEL_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,396,GameConfigs.VERSION This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,417,GameConfigs.GAME_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,418,GameConfigs.CHANNEL_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,418,GameConfigs.VERSION This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,441,GameConfigs.GAME_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,442,GameConfigs.CHANNEL_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,442,GameConfigs.VERSION This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,461,GameConfigs.CHANNEL_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,484,GameConfigs.CHANNEL_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,506,GameConfigs.CHANNEL_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,524,GameConfigs.CHANNEL_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,543,GameConfigs.CHANNEL_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/mananger/NetworkManager.as,563,GameConfigs.CHANNEL_ID This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/RedbagFetch.as,37,any This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/RedbagFetch.as,38,any This variable is not defined.
+7,51.58,e:/OldGame/snake/src/com/bdoggame/RedbagFetch.as,38,any This variable is not defined.
+7,51.98,e:/OldGame/snake/src/com/bdoggame/SettleDialog.as,50,any This variable is not defined.
+7,51.98,e:/OldGame/snake/src/com/bdoggame/SettleDialog.as,51,any This variable is not defined.
+7,51.98,e:/OldGame/snake/src/com/bdoggame/SettleDialog.as,63,any This variable is not defined.
+7,51.98,e:/OldGame/snake/src/com/bdoggame/SettleDialog.as,64,any This variable is not defined.
+7,51.98,e:/OldGame/snake/src/com/bdoggame/SettleDialog.as,112,any This variable is not defined.
+7,51.98,e:/OldGame/snake/src/com/bdoggame/SettleDialog.as,113,any This variable is not defined.
+7,51.98,e:/OldGame/snake/src/com/bdoggame/SettleDialog.as,113,any This variable is not defined.
+7,51.98,e:/OldGame/snake/src/com/bdoggame/SettleDialog.as,180,any This variable is not defined.
+7,51.98,e:/OldGame/snake/src/com/bdoggame/SettleDialog.as,181,any This variable is not defined.
+7,51.98,e:/OldGame/snake/src/com/bdoggame/SettleDialog.as,181,any This variable is not defined.
+7,66.59,e:/OldGame/snake/libs/laya/src/laya/d3/shader/ShaderDefines3D.as,92,_reg This variable is not defined.
+7,66.59,e:/OldGame/snake/libs/laya/src/laya/d3/shader/ShaderDefines3D.as,96,_toText This variable is not defined.
+7,66.59,e:/OldGame/snake/libs/laya/src/laya/d3/shader/ShaderDefines3D.as,100,_toInt This variable is not defined.
+1,89.90,,0,Disable Flash3D e:/OldGame/snake/src/LayaUISample.as
+12,89.90,e:/OldGame/snake/bin/h5/LayaUISample.max.js,865482,
+11,89.90,e:/OldGame/snake/bin/h5/LayaUISample.max.html,894,
 ******************************************************************************
 14,89.90,,0,

@@ -15,7 +15,7 @@
         {
             "x":15,
             "type":"Image",
-            "props":{"y":0,"x":0,"var":"img","skin":"game/Snake_Ball.png","anchorY":0.5,"anchorX":0.5},
+            "props":{"y":0,"x":0,"var":"img","skin":"resources/game/Snake_Ball.png","anchorY":0.5,"anchorX":0.5},
             "nodeParent":1,
             "label":"Image(img)",
             "isDirectory":false,

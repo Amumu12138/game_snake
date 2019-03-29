@@ -22,7 +22,7 @@ package com.bdoggame
 		public static var URL_ADD_REDBAG = this.URL_BASE_GAME +"/redbag/receive";
 		//红包信息
 		public static var URL_REDBAG_INFO = this.URL_BASE_GAME + "/redbag/info";
-		//游戏开关
+		//游戏开关配置
 		public static var URL_CONFIG = this.URL_BASE_GAME + "/config";
 		
 		public static var ID_REVIVE = "adunit-18cddd7a69becdb2";
@@ -34,8 +34,8 @@ package com.bdoggame
 		private static var _redbagInfo;
 		
 		public static var GAME_ID = 33008;
-		public static var CHANNEL_ID = "weixin.snake";
-		public static var VERSION = 100005;
+		public static var CHANNEL_ID = "weixin.tcstyt";
+		public static var VERSION = "100001";
 		public static var PLAT_TYPE = 1;
 		public static var _switch = false;
 		private static var _rewardedVideoAd1;
@@ -187,7 +187,7 @@ package com.bdoggame
 			
 		}
 		
-		public static function  loadVideo():void 
+		public static function loadVideo():void 
 		{
 			if (!Browser.onMiniGame) return;
 			_rewardedVideoAd1 = Browser.window.wx.createRewardedVideoAd({adUnitId: WXSDK.ID_REVIVE})

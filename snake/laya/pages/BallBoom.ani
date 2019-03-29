@@ -5,9 +5,9 @@
     "props":{"sceneWidth":750,"sceneHeight":1500,"sceneColor":"#000000"},
     "nodeParent":-1,
     "label":"View",
-    "isDirectory":false,
+    "isDirectory":true,
     "isAniNode":true,
-    "hasChild":false,
+    "hasChild":true,
     "compId":1,
     "child":[
         {
@@ -30,7 +30,7 @@
                     "keyframes":{
                         "y":[
                             {
-                                "value":0,
+                                "value":-100,
                                 "tweenMethod":"linearNone",
                                 "tween":true,
                                 "target":2,
@@ -39,7 +39,7 @@
                             }],
                         "x":[
                             {
-                                "value":0,
+                                "value":-100,
                                 "tweenMethod":"linearNone",
                                 "tween":true,
                                 "target":2,
@@ -48,7 +48,7 @@
                             }],
                         "skin":[
                             {
-                                "value":"game/SmallBoom_01.png",
+                                "value":"resources/game/SmallBoom_01.png",
                                 "tweenMethod":"linearNone",
                                 "tween":false,
                                 "target":2,
@@ -56,7 +56,7 @@
                                 "index":0
                             },
                             {
-                                "value":"game/SmallBoom_02.png",
+                                "value":"resources/game/SmallBoom_02.png",
                                 "tweenMethod":"linearNone",
                                 "tween":false,
                                 "target":2,
@@ -64,7 +64,7 @@
                                 "index":1
                             },
                             {
-                                "value":"game/SmallBoom_03.png",
+                                "value":"resources/game/SmallBoom_03.png",
                                 "tweenMethod":"linearNone",
                                 "tween":false,
                                 "target":2,
@@ -72,7 +72,7 @@
                                 "index":2
                             },
                             {
-                                "value":"game/SmallBoom_04.png",
+                                "value":"resources/game/SmallBoom_04.png",
                                 "tweenMethod":"linearNone",
                                 "tween":false,
                                 "target":2,
@@ -80,7 +80,7 @@
                                 "index":3
                             },
                             {
-                                "value":"game/SmallBoom_05.png",
+                                "value":"resources/game/SmallBoom_05.png",
                                 "tweenMethod":"linearNone",
                                 "tween":false,
                                 "target":2,
@@ -88,7 +88,7 @@
                                 "index":4
                             },
                             {
-                                "value":"game/SmallBoom_06.png",
+                                "value":"resources/game/SmallBoom_06.png",
                                 "tweenMethod":"linearNone",
                                 "tween":false,
                                 "target":2,
@@ -96,7 +96,7 @@
                                 "index":5
                             },
                             {
-                                "value":"game/SmallBoom_07.png",
+                                "value":"resources/game/SmallBoom_07.png",
                                 "tweenMethod":"linearNone",
                                 "tween":false,
                                 "target":2,
@@ -104,7 +104,7 @@
                                 "index":6
                             },
                             {
-                                "value":"game/SmallBoom_08.png",
+                                "value":"resources/game/SmallBoom_08.png",
                                 "tweenMethod":"linearNone",
                                 "tween":false,
                                 "target":2,
@@ -112,7 +112,7 @@
                                 "index":7
                             },
                             {
-                                "value":"game/SmallBoom_09.png",
+                                "value":"resources/game/SmallBoom_09.png",
                                 "tweenMethod":"linearNone",
                                 "tween":false,
                                 "target":2,
@@ -120,38 +120,12 @@
                                 "index":8
                             },
                             {
-                                "value":"game/SmallBoom_10.png",
+                                "value":"resources/game/SmallBoom_10.png",
                                 "tweenMethod":"linearNone",
                                 "tween":false,
                                 "target":2,
                                 "key":"skin",
                                 "index":9
-                            },
-                            {
-                                "value":"",
-                                "tweenMethod":"linearNone",
-                                "tween":false,
-                                "target":2,
-                                "key":"skin",
-                                "index":10
-                            }],
-                        "anchorY":[
-                            {
-                                "value":0.5,
-                                "tweenMethod":"linearNone",
-                                "tween":true,
-                                "target":2,
-                                "key":"anchorY",
-                                "index":0
-                            }],
-                        "anchorX":[
-                            {
-                                "value":0.5,
-                                "tweenMethod":"linearNone",
-                                "tween":true,
-                                "target":2,
-                                "key":"anchorX",
-                                "index":0
                             }]
                     }
                 }],

@@ -2,7 +2,7 @@
     "x":0,
     "type":"Dialog",
     "selectedBox":1,
-    "selecteID":14,
+    "selecteID":3,
     "props":{"width":750,"sceneColor":"#000000","height":1334},
     "nodeParent":-1,
     "label":"Dialog",
@@ -15,7 +15,20 @@
         {
             "x":15,
             "type":"Image",
-            "props":{"y":409,"x":59,"skin":"settle/bgSettle.png"},
+            "props":{"y":162,"x":128,"var":"imgSlogan","skin":"resources/settle/slogan_01.png"},
+            "nodeParent":1,
+            "label":"Image(imgSlogan)",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":17,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "props":{"y":280,"x":0,"skin":"resources/settle/imgBg.png"},
             "nodeParent":1,
             "label":"Image",
             "isDirectory":false,
@@ -28,7 +41,7 @@
         {
             "x":15,
             "type":"Button",
-            "props":{"y":927,"x":413,"var":"btnHome","skin":"settle/btnHome.png"},
+            "props":{"y":927,"x":413,"var":"btnHome"},
             "nodeParent":1,
             "label":"Button(btnHome)",
             "isDirectory":false,
@@ -41,7 +54,7 @@
         {
             "x":15,
             "type":"Button",
-            "props":{"y":927,"x":233,"var":"btnAgain","skin":"settle/btnAgain.png"},
+            "props":{"y":927,"x":233,"var":"btnAgain"},
             "nodeParent":1,
             "label":"Button(btnAgain)",
             "isDirectory":false,
@@ -54,7 +67,7 @@
         {
             "x":15,
             "type":"Label",
-            "props":{"y":571,"x":341,"var":"labCurScore","text":"50","fontSize":60,"color":"#ffffff"},
+            "props":{"y":454,"var":"labCurScore","text":"50","fontSize":60,"color":"#ffffff","centerX":0},
             "nodeParent":1,
             "label":"Label(labCurScore)",
             "isDirectory":false,
@@ -67,7 +80,7 @@
         {
             "x":15,
             "type":"Label",
-            "props":{"y":659,"x":448,"var":"labHighScore","text":"50","fontSize":40,"color":"#7c7c7c"},
+            "props":{"y":550,"x":400,"var":"labHighScore","text":"50","fontSize":40,"color":"#7c7c7c"},
             "nodeParent":1,
             "label":"Label(labHighScore)",
             "isDirectory":false,
@@ -80,20 +93,7 @@
         {
             "x":15,
             "type":"Label",
-            "props":{"y":477,"x":315,"text":"分数","fontSize":60,"color":"#ffffff"},
-            "nodeParent":1,
-            "label":"Label",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":7,
-            "child":[
-                ]
-        },
-        {
-            "x":15,
-            "type":"Label",
-            "props":{"y":659,"x":240,"text":"最高分","fontSize":40,"color":"#7c7c7c"},
+            "props":{"y":550,"x":240,"text":"最高分","fontSize":40,"color":"#7c7c7c"},
             "nodeParent":1,
             "label":"Label",
             "isDirectory":false,
@@ -127,7 +127,8 @@
                     "compId":11,
                     "child":[
                         ]
-                }]
+                }],
+            "$HIDDEN":true
         },
         {
             "x":15,
@@ -153,7 +154,8 @@
                     "compId":13,
                     "child":[
                         ]
-                }]
+                }],
+            "$HIDDEN":true
         },
         {
             "x":15,
@@ -166,7 +168,8 @@
             "hasChild":false,
             "compId":14,
             "child":[
-                ]
+                ],
+            "$HIDDEN":true
         }],
     "animations":[
         {

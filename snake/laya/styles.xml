@@ -12,4 +12,27 @@
    <item name="game/ball_u_Guide_Banner.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=47,45,44,41" picType="0" scale="0"/>
    <item name="game/ball_u_Guide_Title.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
    <item name="game/Snake_Wall.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=8,3,12,2" picType="0" scale="0"/>
+   <item name="resources/home/imgTitle_01.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/game/desert_01.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/game/desert_02.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/game/desert_03.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/game/street_01.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/game/street_02.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/game/street_03.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/home/Snake_Bg_750-1334.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/settle/imgBg.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/settle/imgMaxScore.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/settle/scoreNum.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/settle/slogan_01.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/settle/slogan_02.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/settle/slogan_03.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/settle/slogan_04.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/gameBG/desert_01.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/gameBG/desert_02.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/gameBG/desert_03.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/gameBG/street_01.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/gameBG/street_02.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/gameBG/street_03.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/game/Snake_BG.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="resources/game/Snake_Wall.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=10,5,10,5" picType="0" scale="0"/>
 </res>

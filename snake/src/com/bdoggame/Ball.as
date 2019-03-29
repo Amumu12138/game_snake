@@ -17,8 +17,6 @@ package com.bdoggame
 		public var ballSnake:BallSnake;
 		public var filter:ColorFilter;
 		
-		
-		
 		public function Ball() 
 		{
 			autoUpdatePosition = false;
@@ -37,12 +35,6 @@ package com.bdoggame
 			body.sprite = this;
 			body.label = "ball";
 
-			//filter = new ColorFilter([1, 0, 0, 0, 0, 
-			//0, 1, 0, 0, 0, 
-			//0, 0, 1, 0, 0, 
-			//0, 0, 0, 1, 0]);
-			//img.filters = [filter];
-			
 		}
 		
 		public function hit(block:Block):void 
@@ -75,17 +67,6 @@ package com.bdoggame
 		public function set index(value:int):void 
 		{
 			_index = value;
-			//filter._mat[4] = (index / (ballSnake.ballCount - 1)) * -60;
-			//img.filters = [filter];
-			//if (ballSnake.ballCount > 1 && !ballSnake.isSuperSnake)
-			//{
-				//filter = new ColorFilter([1, 0, 0, 0, (index / (ballSnake.ballCount - 1)) * -60, 
-				//0, 1, 0, 0, 0, 
-				//0, 0, 1, 0, 0, 
-				//0, 0, 0, 1, 0]);
-				//img.filters = [filter];
-			//}
-			
 		}
 	}
 

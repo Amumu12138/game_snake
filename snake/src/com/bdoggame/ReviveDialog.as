@@ -7,8 +7,9 @@ package com.bdoggame
 	import laya.net.LocalStorage;
 	import com.bdoggame.WXSDK;
 	import com.bdoggame.mananger.NetworkManager;
+	import com.bdoggame.mananger.SceneManager;
 	/**
-	 * ...
+	 * @desc ReviveDialog 复活界面
 	 * @author ...
 	 */
 	public class ReviveDialog extends ReviveDialogUI 
@@ -26,7 +27,7 @@ package com.bdoggame
 		
 		public function ReviveDialog() 
 		{
-			this.btnCoin.on(Event.CLICK, this, onCoinClick);
+			// this.btnCoin.on(Event.CLICK, this, onCoinClick);
 			this.btnEnd.on(Event.CLICK, this, onEndClick);
 			this.btnVideo.on(Event.CLICK, this, onVideoClick);
 			
@@ -101,9 +102,11 @@ package com.bdoggame
 		
 		private function onEndClick(){
 			this.close();
-			var settleDialog:SettleDialog = SettleDialog.instance();
-			settleDialog.popup();
-			settleDialog.updateScore(_curScore, _highScore);
+			// var settleDialog:SettleDialog = SettleDialog.instance();
+			// settleDialog.popup();
+			// settleDialog.updateScore(_curScore, _highScore);
+			var gameView: GameView = GameView.instance();
+			SceneManager.instance.replaceScene(gameView);
 			
 			//GameSDK.onHideBanner();
 		}
@@ -119,9 +122,9 @@ package com.bdoggame
 		
 		private function setCoinNum(){
 			var coin:int = LocalStorage.getItem("COIN_NUM", 0) == null? 0: LocalStorage.getItem("COIN_NUM", 0);
-			this.labCoin.text = coin + "/5";
+			// this.labCoin.text = coin + "/5";
 			console.log("ricardo set coinnum "+ coin);
-			this.btnCoin.disabled = coin <= 0;
+			// this.btnCoin.disabled = coin <= 0;
 		}
 		
 	}
